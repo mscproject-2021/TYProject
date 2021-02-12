@@ -2,17 +2,33 @@ package com.example.Entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 @Entity
 public class Holiday {
 
 		@Id
+		@GeneratedValue(strategy = GenerationType.AUTO)
+		@Column(name="holiday_id",updatable = false,length = 3)
 		private int holiday_id;
+		@NonNull
 		private String holiday_name;
+		@NonNull
+		@Temporal(TemporalType.DATE)
 		private Date holiday_startdate;
+		@NonNull
+		@Temporal(TemporalType.DATE)
 		private Date holiday_enddate;
+		@Nullable
 		private String holiday_description;
 		public Holiday() {
 			super();

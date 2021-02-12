@@ -1,28 +1,45 @@
 package com.example.Entity;
 
 import java.util.Date;
-import java.util.Timer;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 @Entity
 public class Event {
 
 		@Id
+		@GeneratedValue(strategy = GenerationType.AUTO)
+		@Column(name="event_id",updatable = false,length = 4)
 		private int event_id;
+		@NonNull
 		private String event_name;
+		@NonNull
 		private Date event_startdate;
+		@NonNull
 		private Date event_enddate;
-		private Timer event_starttime;
-		private Timer event_endtime;
+		@NonNull
+		@Temporal(TemporalType.TIME)
+		private Date event_starttime;
+		@NonNull
+		@Temporal(TemporalType.TIME)
+		private Date event_endtime;
+		@Nullable
 		private String event_description;
 		public Event() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
-		public Event(int event_id, String event_name, Date event_startdate, Date event_enddate, Timer event_starttime,
-				Timer event_endtime, String event_description) {
+		public Event(int event_id, String event_name, Date event_startdate, Date event_enddate, Date event_starttime,
+				Date event_endtime, String event_description) {
 			super();
 			this.event_id = event_id;
 			this.event_name = event_name;
@@ -56,16 +73,16 @@ public class Event {
 		public void setEvent_enddate(Date event_enddate) {
 			this.event_enddate = event_enddate;
 		}
-		public Timer getEvent_starttime() {
+		public Date getEvent_starttime() {
 			return event_starttime;
 		}
-		public void setEvent_starttime(Timer event_starttime) {
+		public void setEvent_starttime(Date event_starttime) {
 			this.event_starttime = event_starttime;
 		}
-		public Timer getEvent_endtime() {
+		public Date getEvent_endtime() {
 			return event_endtime;
 		}
-		public void setEvent_endtime(Timer event_endtime) {
+		public void setEvent_endtime(Date event_endtime) {
 			this.event_endtime = event_endtime;
 		}
 		public String getEvent_description() {

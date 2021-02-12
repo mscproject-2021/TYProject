@@ -2,28 +2,51 @@ package com.example.Entity;
 
 import java.util.Arrays;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.springframework.lang.NonNull;
 
 @Entity
 public class TimeTable {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="timetable_id",updatable = false,length = 3)
 	private int timetable_id;
-	private int standard_id;
-	private int teacher_id;
-	private int usertype_id;
+	//one standard has many timetable
+	@ManyToOne
+	@JoinColumn(name="standardId")
+	private Standard standard;
+	//one teacher has one timetable
+	@OneToOne
+	@JoinColumn(name="teacherId")
+	private Teacher teacher;
+	//many users are belong to one timetable
+	@ManyToOne
+	@JoinColumn(name="usertypeId")
+	private UserType userType;
+	@NonNull
+	@Lob
+	@Column(name = "file", columnDefinition="BLOB")
 	private byte[] timetable_file;
 	public TimeTable() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TimeTable(int timetable_id, int standard_id, int teacher_id, int usertype_id, byte[] timetable_file) {
+	public TimeTable(int timetable_id, Standard standard, Teacher teacher, UserType userType, byte[] timetable_file) {
 		super();
 		this.timetable_id = timetable_id;
-		this.standard_id = standard_id;
-		this.teacher_id = teacher_id;
-		this.usertype_id = usertype_id;
+		this.standard = standard;
+		this.teacher = teacher;
+		this.userType = userType;
 		this.timetable_file = timetable_file;
 	}
 	public int getTimetable_id() {
@@ -32,23 +55,23 @@ public class TimeTable {
 	public void setTimetable_id(int timetable_id) {
 		this.timetable_id = timetable_id;
 	}
-	public int getStandard_id() {
-		return standard_id;
+	public Standard getStandard() {
+		return standard;
 	}
-	public void setStandard_id(int standard_id) {
-		this.standard_id = standard_id;
+	public void setStandard(Standard standard) {
+		this.standard = standard;
 	}
-	public int getTeacher_id() {
-		return teacher_id;
+	public Teacher getTeacher() {
+		return teacher;
 	}
-	public void setTeacher_id(int teacher_id) {
-		this.teacher_id = teacher_id;
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
-	public int getUsertype_id() {
-		return usertype_id;
+	public UserType getUserType() {
+		return userType;
 	}
-	public void setUsertype_id(int usertype_id) {
-		this.usertype_id = usertype_id;
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 	public byte[] getTimetable_file() {
 		return timetable_file;
@@ -58,9 +81,7 @@ public class TimeTable {
 	}
 	@Override
 	public String toString() {
-		return "TimeTable [timetable_id=" + timetable_id + ", standard_id=" + standard_id + ", teacher_id=" + teacher_id
-				+ ", usertype_id=" + usertype_id + ", timetable_file=" + Arrays.toString(timetable_file) + "]";
+		return "TimeTable [timetable_id=" + timetable_id + ", standard=" + standard + ", teacher=" + teacher
+				+ ", userType=" + userType + ", timetable_file=" + Arrays.toString(timetable_file) + "]";
 	}
-	
-	
 }
