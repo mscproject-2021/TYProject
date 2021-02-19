@@ -1,4 +1,4 @@
-package com.example.Entity;
+package com.school.app.model;
 
 import java.util.Date;
 

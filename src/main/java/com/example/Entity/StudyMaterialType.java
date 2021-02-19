@@ -1,50 +1,35 @@
-package com.example.Entity;
+package com.school.app.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.springframework.lang.NonNull;
 
 @Entity
 public class StudyMaterialType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="studymaterial_type_id",updatable = false,length = 1)
-	private int studymaterial_type_id;
-	@NonNull
-	private String studymaterial_type;
+	@Column(updatable = false,length = 1)
+	private int studymaterialTypeId;
 	
-	public StudyMaterialType() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	@NotNull
+	@Column(length = 15,nullable = false)
+	@Size(max = 15)
+	private String studymaterialType;
 	
-	public StudyMaterialType(int studymaterial_type_id, String studymaterial_type) {
-		super();
-		this.studymaterial_type_id = studymaterial_type_id;
-		this.studymaterial_type = studymaterial_type;
-	}
-	public int getStudymaterial_type_id() {
-		return studymaterial_type_id;
-	}
-	public void setStudymaterial_type_id(int studymaterial_type_id) {
-		this.studymaterial_type_id = studymaterial_type_id;
-	}
-	public String getStudymaterial_type() {
-		return studymaterial_type;
-	}
-	public void setStudymaterial_type(String studymaterial_type) {
-		this.studymaterial_type = studymaterial_type;
-	}
 	
-	@Override
-	public String toString() {
-		return "StudyMaterialType [studymaterial_type_id=" + studymaterial_type_id + ", studymaterial_type="
-				+ studymaterial_type + "]";
-	}
+	@OneToMany(mappedBy = "studymaterialType",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<StudyMaterial> studyMaterial;
+	
 	
 }
