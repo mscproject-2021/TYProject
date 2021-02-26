@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 public class StudyMaterialType {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(updatable = false,length = 1)
 	private int studymaterialTypeId;
 	
@@ -28,8 +28,62 @@ public class StudyMaterialType {
 	private String studymaterialType;
 	
 	
-	@OneToMany(mappedBy = "studymaterialType",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "studyMaterialType",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<StudyMaterial> studyMaterial;
-	
+
+	//default Constructor
+	public StudyMaterialType()
+	{
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	//Parameterized Constructor
+	public StudyMaterialType(int studymaterialTypeId, @NotNull @Size(max = 15) String studymaterialType,
+			List<StudyMaterial> studyMaterial) 
+	{
+		super();
+		this.studymaterialTypeId = studymaterialTypeId;
+		this.studymaterialType = studymaterialType;
+		this.studyMaterial = studyMaterial;
+	}
+
+	//getters and setters
+	public int getStudymaterialTypeId()
+	{
+		return studymaterialTypeId;
+	}
+
+	public void setStudymaterialTypeId(int studymaterialTypeId) 
+	{
+		this.studymaterialTypeId = studymaterialTypeId;
+	}
+
+	public String getStudymaterialType() 
+	{
+		return studymaterialType;
+	}
+
+	public void setStudymaterialType(String studymaterialType)
+	{
+		this.studymaterialType = studymaterialType;
+	}
+
+	public List<StudyMaterial> getStudyMaterial()
+	{
+		return studyMaterial;
+	}
+
+	public void setStudyMaterial(List<StudyMaterial> studyMaterial) 
+	{
+		this.studyMaterial = studyMaterial;
+	}
+
+
+	@Override
+	public String toString() {
+		return "StudyMaterialType [studymaterialTypeId=" + studymaterialTypeId + ", studymaterialType="
+				+ studymaterialType + ", studyMaterial=" + studyMaterial + "]";
+	}
 	
 }

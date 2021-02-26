@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 public class FeePayment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(updatable = false,length = 10)
 	private long paymentId;
 	
@@ -60,5 +60,129 @@ public class FeePayment {
 	@Column(length = 1,nullable = false)
 	@Size(max = 1)
 	private int InstallmentNo;
+
+	//default Constructor
+	public FeePayment() 
+	{
+		super();
+	}
+
+	//Parameterized Constructor
+	public FeePayment(long paymentId, Student student, @NotNull @Size(max = 5) String paymentMode,
+			@NotNull @Size(max = 4) int feesAmount, @Size(max = 3) int latefeesAmount,
+			@NotNull @Size(max = 4) int totalfeesAmount, @NotNull @Size(max = 6) String feeStatus,
+			@NotNull Date paymentDate, @NotNull @Size(max = 1) int installmentNo)
+	{
+		super();
+		this.paymentId = paymentId;
+		this.student = student;
+		this.paymentMode = paymentMode;
+		this.feesAmount = feesAmount;
+		this.latefeesAmount = latefeesAmount;
+		this.totalfeesAmount = totalfeesAmount;
+		this.feeStatus = feeStatus;
+		this.paymentDate = paymentDate;
+		InstallmentNo = installmentNo;
+	}
+
+	//getters and setters
+	public long getPaymentId() 
+	{
+		return paymentId;
+	}
+
+	public void setPaymentId(long paymentId) 
+	{
+		this.paymentId = paymentId;
+	}
+
+	public Student getStudent()
+	{
+		return student;
+	}
+
+	public void setStudent(Student student) 
+	{
+		this.student = student;
+	}
+
+	public String getPaymentMode()
+	{
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode)
+	{
+		this.paymentMode = paymentMode;
+	}
+
+	public int getFeesAmount() 
+	{
+		return feesAmount;
+	}
+
+	public void setFeesAmount(int feesAmount) 
+	{
+		this.feesAmount = feesAmount;
+	}
+
+	public int getLatefeesAmount()
+	{
+		return latefeesAmount;
+	}
+
+	public void setLatefeesAmount(int latefeesAmount) 
+	{
+		this.latefeesAmount = latefeesAmount;
+	}
+
+	public int getTotalfeesAmount()
+	{
+		return totalfeesAmount;
+	}
+
+	public void setTotalfeesAmount(int totalfeesAmount) 
+	{
+		this.totalfeesAmount = totalfeesAmount;
+	}
+
+	public String getFeeStatus() 
+	{
+		return feeStatus;
+	}
+
+	public void setFeeStatus(String feeStatus)
+	{
+		this.feeStatus = feeStatus;
+	}
+
+	public Date getPaymentDate()
+	{
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Date paymentDate) 
+	{
+		this.paymentDate = paymentDate;
+	}
+
+	public int getInstallmentNo() 
+	{
+		return InstallmentNo;
+	}
+
+	public void setInstallmentNo(int installmentNo) 
+	{
+		InstallmentNo = installmentNo;
+	}
+
+	@Override
+	public String toString() 
+	{
+		return "FeePayment [paymentId=" + paymentId + ", student=" + student + ", paymentMode=" + paymentMode
+				+ ", feesAmount=" + feesAmount + ", latefeesAmount=" + latefeesAmount + ", totalfeesAmount="
+				+ totalfeesAmount + ", feeStatus=" + feeStatus + ", paymentDate=" + paymentDate + ", InstallmentNo="
+				+ InstallmentNo + "]";
+	}
 	
 }

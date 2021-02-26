@@ -2,24 +2,29 @@ package com.school.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
-import com.sun.istack.NotNull;
-
-//@Component
 @Entity
 public class UserType {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(length = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(length = 1,updatable = false)
 	private int usertypeId;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Login login;
+	
+	@Size(max = 7)
+	@Column(length = 7 ,nullable = false)
 	@NotNull
-	@Column(length = 7)
 	private String userType;
 	
 	//default Constructor
@@ -57,7 +62,7 @@ public class UserType {
 		this.userType = userType;
 	}
 	
-	//tostring
+	//toString
 	@Override
 	public String toString() 
 	{
@@ -65,4 +70,3 @@ public class UserType {
 	}
 	
 }
-
