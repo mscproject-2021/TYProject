@@ -1,29 +1,35 @@
 package com.school.app.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 @Entity
 public class UserType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(length = 1,updatable = false)
+	@Column(length = 1, columnDefinition = "TinyInt")
 	private int usertypeId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Login login;
+	@OneToMany(mappedBy = "usertype")
+	private List<Login> login;
 	
-	@Size(max = 7)
+	@OneToMany(mappedBy = "usertype")
+	private List<Meeting> meeting;
+	
+	@OneToMany(mappedBy = "usertype")
+	private List<TimeTable> timetable;
+	
 	@Column(length = 7 ,nullable = false)
+	@Size(max = 7)
 	@NotNull
 	private String userType;
 	
@@ -34,39 +40,63 @@ public class UserType {
 	}
 
 	//Parameterized Constructor
-	public UserType(int usertypeId, String userType) 
-	{
+	public UserType(int usertypeId, List<Login> login, List<Meeting> meeting, List<TimeTable> timetable,
+			@Size(max = 7) @NotNull String userType) {
 		super();
 		this.usertypeId = usertypeId;
+		this.login = login;
+		this.meeting = meeting;
+		this.timetable = timetable;
 		this.userType = userType;
 	}
-	
+
 	//getters and setters
-	public int getUsertypeId() 
-	{
+	public int getUsertypeId() {
 		return usertypeId;
 	}
-	
-	public void setUsertypeId(int usertypeId) 
-	{
+
+	public void setUsertypeId(int usertypeId) {
 		this.usertypeId = usertypeId;
 	}
 	
-	public String getUserType() 
-	{
+	public String getUserType() {
 		return userType;
 	}
-	
-	public void setUserType(String userType) 
-	{
+
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
-	//toString
-	@Override
-	public String toString() 
-	{
-		return "UserType [usertypeId=" + usertypeId + ", userType=" + userType + "]";
+
+	/*public List<Login> getLogin() {
+		return login;
 	}
-	
+
+	public void setLogin(List<Login> login) {
+		this.login = login;
+	}
+
+	public List<Meeting> getMeeting() {
+		return meeting;
+	}
+
+	public void setMeeting(List<Meeting> meeting) {
+		this.meeting = meeting;
+	}
+
+	public List<TimeTable> getTimetable() {
+		return timetable;
+	}
+
+	public void setTimetable(List<TimeTable> timetable) {
+		this.timetable = timetable;
+	}*/
+
+
+	@Override
+	public String toString() {
+		return "UserType [usertypeId=" + usertypeId + ", login=" + login + ", meeting=" + meeting + ", timetable="
+				+ timetable + ", userType=" + userType + "]";
+	}
+
+
 }

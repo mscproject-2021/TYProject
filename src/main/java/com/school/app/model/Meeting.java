@@ -1,32 +1,29 @@
 package com.school.app.model;
 
-import java.util.Date;
-import java.util.List;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
 public class Meeting {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 4)
 	private int meetingId;
 	
-	//meeting should be either of teacher or student
-	@ManyToOne(fetch = FetchType.LAZY)
-	private List<UserType> usertype;
+	@ManyToOne
+	private UserType usertype;
 	
 	@NotNull
 	@Column(length = 20,nullable = false)
@@ -34,19 +31,20 @@ public class Meeting {
 	private String meetingName;
 	
 	@NotNull
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date meetingDate;
+	@Column(nullable = false,columnDefinition = "DATE")
+	@CreatedDate
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private Calendar meetingDate;
 	
 	@NotNull()
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date meetingStarttime;
+	@Column(nullable = false,columnDefinition = "TIME")
+	@JsonFormat(pattern = "HH-mm-ss")
+	private Calendar meetingStartTime;
 	
 	@NotNull
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date meetingEndtime;
+	@Column(nullable = false,columnDefinition = "TIME")
+	@JsonFormat(pattern = "HH-mm-ss")
+	private Calendar meetingEndTime;
 	
 	@Column(length = 100)
 	@Size(max = 100)
@@ -59,97 +57,80 @@ public class Meeting {
 	}
 
 	//Parameterized Constructor
-	public Meeting(int meetingId, List<UserType> usertype, @NotNull @Size(max = 20) String meetingName,
-			@NotNull Date meetingDate, @NotNull Date meetingStarttime, @NotNull Date meetingEndtime,
-			@Size(max = 100) String meetingDescription) 
-	{
+	public Meeting(int meetingId, UserType usertype, @NotNull @Size(max = 20) String meetingName,
+			@NotNull Calendar meetingDate, @NotNull Calendar meetingStartTime, @NotNull Calendar meetingEndTime,
+			@Size(max = 100) String meetingDescription) {
 		super();
 		this.meetingId = meetingId;
 		this.usertype = usertype;
 		this.meetingName = meetingName;
 		this.meetingDate = meetingDate;
-		this.meetingStarttime = meetingStarttime;
-		this.meetingEndtime = meetingEndtime;
+		this.meetingStartTime = meetingStartTime;
+		this.meetingEndTime = meetingEndTime;
 		this.meetingDescription = meetingDescription;
 	}
 
 	//getters and setters
-	public int getMeetingId() 
-	{
+	public int getMeetingId() {
 		return meetingId;
 	}
 
-	public void setMeetingId(int meetingId) 
-	{
+	public void setMeetingId(int meetingId) {
 		this.meetingId = meetingId;
 	}
 
-	public List<UserType> getUsertype()
-	{
+	public UserType getUsertype() {
 		return usertype;
 	}
 
-	public void setUsertype(List<UserType> usertype)
-	{
+	public void setUsertype(UserType usertype) {
 		this.usertype = usertype;
 	}
 
-	public String getMeetingName()
-	{
+	public String getMeetingName() {
 		return meetingName;
 	}
 
-	public void setMeetingName(String meetingName)
-	{
+	public void setMeetingName(String meetingName) {
 		this.meetingName = meetingName;
 	}
 
-	public Date getMeetingDate() 
-	{
+	public Calendar getMeetingDate() {
 		return meetingDate;
 	}
 
-	public void setMeetingDate(Date meetingDate) 
-	{
+	public void setMeetingDate(Calendar meetingDate) {
 		this.meetingDate = meetingDate;
 	}
 
-	public Date getMeetingStarttime() 
-	{
-		return meetingStarttime;
+	public Calendar getMeetingStartTime() {
+		return meetingStartTime;
 	}
 
-	public void setMeetingStarttime(Date meetingStarttime)
-	{
-		this.meetingStarttime = meetingStarttime;
+	public void setMeetingStartTime(Calendar meetingStartTime) {
+		this.meetingStartTime = meetingStartTime;
 	}
 
-	public Date getMeetingEndtime() 
-	{
-		return meetingEndtime;
+	public Calendar getMeetingEndTime() {
+		return meetingEndTime;
 	}
 
-	public void setMeetingEndtime(Date meetingEndtime) 
-	{
-		this.meetingEndtime = meetingEndtime;
+	public void setMeetingEndTime(Calendar meetingEndTime) {
+		this.meetingEndTime = meetingEndTime;
 	}
 
-	public String getMeetingDescription()
-	{
+	public String getMeetingDescription() {
 		return meetingDescription;
 	}
 
-	public void setMeetingDescription(String meetingDescription)
-	{
+	public void setMeetingDescription(String meetingDescription) {
 		this.meetingDescription = meetingDescription;
 	}
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "Meeting [meetingId=" + meetingId + ", usertype=" + usertype + ", meetingName=" + meetingName
-				+ ", meetingDate=" + meetingDate + ", meetingStarttime=" + meetingStarttime + ", meetingEndtime="
-				+ meetingEndtime + ", meetingDescription=" + meetingDescription + "]";
-	}
-
+				+ ", meetingDate=" + meetingDate + ", meetingStartTime=" + meetingStartTime + ", meetingEndTime="
+				+ meetingEndTime + ", meetingDescription=" + meetingDescription + "]";
+	}	
 }

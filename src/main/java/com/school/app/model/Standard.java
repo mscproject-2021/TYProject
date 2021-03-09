@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-//@Component
+import org.hibernate.validator.constraints.Range;
+
 @Entity
 public class Standard 
 {
@@ -23,25 +24,22 @@ public class Standard
 	@Column(length = 2,updatable = false)
 	private int standardId;
 	
-	
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<Division> division;
 	
-	//Add Constraint below
 	@OneToMany(mappedBy = "standard",fetch = FetchType.LAZY)
-	private List<Student> grNo; 
+	private List<Student> student; 
 	
-	//add
 	@ManyToMany(mappedBy = "standard" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Subject> subject;
 	
 	@OneToMany(mappedBy = "standard",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private List<Standard> timetable;
+	private List<TimeTable> timetable;
 	
 	@ManyToMany(mappedBy = "standard",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Teacher> teacher;
 	
-	@ManyToMany(mappedBy = "standard",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "standard",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<StudyMaterial> studyMaterial;
 	
 	@OneToMany(mappedBy = "standard",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -53,12 +51,12 @@ public class Standard
 	private int standardName;
 	
 	@NotNull
-	@Size(max = 3)
+	@Range(max = 3)
 	@Column(length = 3,nullable = false)
 	private int noOfStudents;
 	
 	@NotNull
-	@Size(max = 2)
+	@Range(max = 2)
 	@Column(length = 2,nullable = false)
 	private int noOfSubjects;
 
@@ -69,15 +67,14 @@ public class Standard
 	}
 
 	//Parameterized Constructor
-	public Standard(int standardId, List<Division> division, List<Student> grNo, List<Subject> subject,
-			List<Standard> timetable, List<Teacher> teacher, List<StudyMaterial> studyMaterial, List<Result> result,
-			@NotNull @Size(max = 2) int standardName, @NotNull @Size(max = 3) int noOfStudents,
-			@NotNull @Size(max = 2) int noOfSubjects)
-	{
+	public Standard(int standardId, List<Division> division, List<Student> student, List<Subject> subject,
+			List<TimeTable> timetable, List<Teacher> teacher, List<StudyMaterial> studyMaterial, List<Result> result,
+			@NotNull @Size(max = 2) int standardName, @NotNull @Range(max = 3) int noOfStudents,
+			@NotNull @Range(max = 2) int noOfSubjects) {
 		super();
 		this.standardId = standardId;
 		this.division = division;
-		this.grNo = grNo;
+		this.student = student;
 		this.subject = subject;
 		this.timetable = timetable;
 		this.teacher = teacher;
@@ -89,122 +86,99 @@ public class Standard
 	}
 
 	//getters and setters
-	public int getStandardId() 
-	{
+	public int getStandardId() {
 		return standardId;
 	}
 
-	public void setStandardId(int standardId) 
-	{
+	public void setStandardId(int standardId) {
 		this.standardId = standardId;
 	}
 
-	public List<Division> getDivision()
-	{
+	/*public List<Division> getDivision() {
 		return division;
 	}
 
-	public void setDivision(List<Division> division)
-	{
+	public void setDivision(List<Division> division) {
 		this.division = division;
 	}
 
-	public List<Student> getGrNo() 
-	{
-		return grNo;
+	public List<Student> getStudent() {
+		return student;
 	}
 
-	public void setGrNo(List<Student> grNo)
-	{
-		this.grNo = grNo;
+	public void setStudent(List<Student> student) {
+		this.student = student;
 	}
 
-	public List<Subject> getSubject()
-	{
+	public List<Subject> getSubject() {
 		return subject;
 	}
 
-	public void setSubject(List<Subject> subject)
-	{
+	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
 	}
 
-	public List<Standard> getTimetable() 
-	{
+	public List<TimeTable> getTimetable() {
 		return timetable;
 	}
 
-	public void setTimetable(List<Standard> timetable)
-	{
+	public void setTimetable(List<TimeTable> timetable) {
 		this.timetable = timetable;
 	}
 
-	public List<Teacher> getTeacher()
-	{
+	public List<Teacher> getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(List<Teacher> teacher) 
-	{
+	public void setTeacher(List<Teacher> teacher) {
 		this.teacher = teacher;
 	}
 
-	public List<StudyMaterial> getStudyMaterial() 
-	{
+	public List<StudyMaterial> getStudyMaterial() {
 		return studyMaterial;
 	}
 
-	public void setStudyMaterial(List<StudyMaterial> studyMaterial) 
-	{
+	public void setStudyMaterial(List<StudyMaterial> studyMaterial) {
 		this.studyMaterial = studyMaterial;
 	}
 
-	public List<Result> getResult()
-	{
+	public List<Result> getResult() {
 		return result;
 	}
 
-	public void setResult(List<Result> result) 
-	{
+	public void setResult(List<Result> result) {
 		this.result = result;
-	}
+	}*/
 
-	public int getStandardName()
-	{
+	public int getStandardName() {
 		return standardName;
 	}
 
-	public void setStandardName(int standardName) 
-	{
+	public void setStandardName(int standardName) {
 		this.standardName = standardName;
 	}
 
-	public int getNoOfStudents() 
-	{
+	public int getNoOfStudents() {
 		return noOfStudents;
 	}
 
-	public void setNoOfStudents(int noOfStudents) 
-	{
+	public void setNoOfStudents(int noOfStudents) {
 		this.noOfStudents = noOfStudents;
 	}
 
-	public int getNoOfSubjects() 
-	{
+	public int getNoOfSubjects() {
 		return noOfSubjects;
 	}
 
-	public void setNoOfSubjects(int noOfSubjects) 
-	{
+	public void setNoOfSubjects(int noOfSubjects) {
 		this.noOfSubjects = noOfSubjects;
 	}
 
 	@Override
-	public String toString() 
-	{
-		return "Standard [standardId=" + standardId + ", division=" + division + ", grNo=" + grNo + ", subject="
+	public String toString() {
+		return "Standard [standardId=" + standardId + ", division=" + division + ", student=" + student + ", subject="
 				+ subject + ", timetable=" + timetable + ", teacher=" + teacher + ", studyMaterial=" + studyMaterial
 				+ ", result=" + result + ", standardName=" + standardName + ", noOfStudents=" + noOfStudents
 				+ ", noOfSubjects=" + noOfSubjects + "]";
-	}	
+	}
 }

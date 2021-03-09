@@ -1,8 +1,9 @@
 package com.school.app.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +16,12 @@ import javax.validation.constraints.Size;
 public class ExamType {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(updatable = false,length = 1)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable = false,length = 1 , columnDefinition = "TinyInt")
 	private int examtypeId;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	private Result result;
+	@OneToMany(mappedBy = "examtype")
+	private List<Result> result;
 	
 	@NotNull
 	@Column(length = 15,nullable = false)
@@ -38,7 +39,7 @@ public class ExamType {
 	}
 
 	//Parameterized Constructor
-	public ExamType(int examtypeId, Result result, @NotNull @Size(max = 15) String examtypeName,
+	public ExamType(int examtypeId, List<Result> result, @NotNull @Size(max = 15) String examtypeName,
 			@Size(max = 100) String examtypeDescription)
 	{
 		super();
@@ -59,15 +60,15 @@ public class ExamType {
 		this.examtypeId = examtypeId;
 	}
 
-	public Result getResult() 
+	/*public List<Result> getResult() 
 	{
 		return result;
 	}
 
-	public void setResult(Result result)
+	public void setResult(List<Result> result)
 	{
 		this.result = result;
-	}
+	}*/
 
 	public String getExamtypeName() 
 	{

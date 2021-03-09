@@ -1,23 +1,22 @@
 package com.school.app.model;
 
-import java.util.Date;
-
+import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
 public class SchoolDetail {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 1)
 	private int schoolDetailId;
 	
@@ -42,25 +41,25 @@ public class SchoolDetail {
 	private String logo;
 	
 	@NotNull
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date officeOpenTime;
+	@Column(nullable = false,columnDefinition = "TIME")
+	@JsonFormat(pattern = "HH-mm-ss")
+	private Calendar officeOpenTime;
 	
 	@NotNull
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIME)
-	private Date officeCloseTime;
+	@Column(nullable = false,columnDefinition = "TIME")
+	@JsonFormat(pattern = "HH-mm-ss")
+	private Calendar officeCloseTime;
 
 	//default Constructor
-	public SchoolDetail() {
+	public SchoolDetail()
+	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	//Parameterized Constructor
 	public SchoolDetail(int schoolDetailId, @NotNull @Size(max = 40) String emailId,
 			@NotNull @Size(max = 10) String landlineNo, @NotNull @Size(max = 10) String mobileNo,
-			@NotNull @Size(max = 255) String logo, @NotNull Date officeOpenTime, @NotNull Date officeCloseTime) {
+			@NotNull @Size(max = 255) String logo, @NotNull Calendar officeOpenTime, @NotNull Calendar officeCloseTime) {
 		super();
 		this.schoolDetailId = schoolDetailId;
 		this.emailId = emailId;
@@ -112,19 +111,19 @@ public class SchoolDetail {
 		this.logo = logo;
 	}
 
-	public Date getOfficeOpenTime() {
+	public Calendar getOfficeOpenTime() {
 		return officeOpenTime;
 	}
 
-	public void setOfficeOpenTime(Date officeOpenTime) {
+	public void setOfficeOpenTime(Calendar officeOpenTime) {
 		this.officeOpenTime = officeOpenTime;
 	}
 
-	public Date getOfficeCloseTime() {
+	public Calendar getOfficeCloseTime() {
 		return officeCloseTime;
 	}
 
-	public void setOfficeCloseTime(Date officeCloseTime) {
+	public void setOfficeCloseTime(Calendar officeCloseTime) {
 		this.officeCloseTime = officeCloseTime;
 	}
 

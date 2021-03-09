@@ -1,8 +1,9 @@
 package com.school.app.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,9 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Component;
-
-@Component
 @Entity
 public class Subject 
 {
@@ -21,13 +19,11 @@ public class Subject
 	@Column(length = 2,updatable = false)
 	private int subjectId;
 	
-	//add constraint below
-	@ManyToMany(fetch = FetchType.LAZY)
-	private Standard standard;
+	@ManyToMany
+	private List<Standard> standard;
 	
-	//add constraint below
-	@ManyToMany(fetch = FetchType.LAZY)
-	private Teacher teacher;
+	@ManyToMany
+	private List<Teacher> teacher;
 	
 	@Column(length = 15,nullable = false)
 	@Size(min = 2,max = 15)
@@ -42,7 +38,7 @@ public class Subject
 	}
 
 	//Parameterized Constructor
-	public Subject(int subjectId, Standard standard, Teacher teacher,
+	public Subject(int subjectId, List<Standard> standard, List<Teacher> teacher,
 			@Size(min = 2, max = 15) @NotNull String subjectName)
 	{
 		super();
@@ -63,22 +59,22 @@ public class Subject
 		this.subjectId = subjectId;
 	}
 
-	public Standard getStandard() 
+	public List<Standard> getStandard() 
 	{
 		return standard;
 	}
 
-	public void setStandard(Standard standard)
+	public void setStandard(List<Standard> standard)
 	{
 		this.standard = standard;
 	}
 
-	public Teacher getTeacher() 
+	public List<Teacher> getTeacher() 
 	{
 		return teacher;
 	}
 
-	public void setTeacher(Teacher teacher) 
+	public void setTeacher(List<Teacher> teacher) 
 	{
 		this.teacher = teacher;
 	}

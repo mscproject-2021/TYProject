@@ -2,7 +2,6 @@ package com.school.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,16 +9,16 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 @Entity
 public class Query {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 4)
 	private int queryId;
 	
-	//many Quries are belong to one parent
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Parent parent;
 	
 	@NotNull
@@ -32,9 +31,9 @@ public class Query {
 	private String responseMessage;
 
 	//default Constructor
-	public Query() {
+	public Query() 
+	{
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	//Parameterized Constructor
@@ -56,13 +55,13 @@ public class Query {
 		this.queryId = queryId;
 	}
 
-	public Parent getParent() {
-		return parent;
-	}
-
-	public void setParent(Parent parent) {
-		this.parent = parent;
-	}
+//	public Parent getParent() {
+//		return parent;
+//	}
+//
+//	public void setParent(Parent parent) {
+//		this.parent = parent;
+//	}
 
 	public String getQueryMessage() {
 		return queryMessage;

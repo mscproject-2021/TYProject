@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 public class Inquiry {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 4)
 	private int inquiryId;
 	

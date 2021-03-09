@@ -1,6 +1,6 @@
 package com.school.app.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,42 +8,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import org.springframework.data.annotation.CreatedDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class FeePayment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(updatable = false,length = 10)
-	private long paymentId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(updatable = false,length = 7)
+	private int paymentId;
 	
-	// one student has done many fee payment
 	@ManyToOne
 	private Student student;
 	
 	@NotNull
-	@Column(length = 5,nullable = false)
-	@Size(max = 5)
+	@Column(length = 7,nullable = false)
+	@Size(max = 7)
 	private String paymentMode;
 	
 	@NotNull
 	@Column(length = 4,nullable = false)
-	@Size(max = 4)
 	private int feesAmount;
 	
-
 	@Column(length = 3)
-	@Size(max = 3)
 	private int latefeesAmount;
 	
 	@NotNull
 	@Column(length = 4,nullable = false)
-	@Size(max = 4)
 	private int totalfeesAmount;
 	
 	@NotNull
@@ -52,13 +46,13 @@ public class FeePayment {
 	private String feeStatus;
 	
 	@NotNull
-	@Column(nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date paymentDate;
+	@Column(nullable = false,columnDefinition = "DATE")
+	@CreatedDate
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	private Calendar paymentDate;
 	
 	@NotNull
 	@Column(length = 1,nullable = false)
-	@Size(max = 1)
 	private int InstallmentNo;
 
 	//default Constructor
@@ -68,10 +62,10 @@ public class FeePayment {
 	}
 
 	//Parameterized Constructor
-	public FeePayment(long paymentId, Student student, @NotNull @Size(max = 5) String paymentMode,
+	public FeePayment(int paymentId, Student student, @NotNull @Size(max = 5) String paymentMode,
 			@NotNull @Size(max = 4) int feesAmount, @Size(max = 3) int latefeesAmount,
 			@NotNull @Size(max = 4) int totalfeesAmount, @NotNull @Size(max = 6) String feeStatus,
-			@NotNull Date paymentDate, @NotNull @Size(max = 1) int installmentNo)
+			@NotNull Calendar paymentDate, @NotNull @Size(max = 1) int installmentNo)
 	{
 		super();
 		this.paymentId = paymentId;
@@ -86,12 +80,12 @@ public class FeePayment {
 	}
 
 	//getters and setters
-	public long getPaymentId() 
+	public int getPaymentId() 
 	{
 		return paymentId;
 	}
 
-	public void setPaymentId(long paymentId) 
+	public void setPaymentId(int paymentId) 
 	{
 		this.paymentId = paymentId;
 	}
@@ -156,12 +150,12 @@ public class FeePayment {
 		this.feeStatus = feeStatus;
 	}
 
-	public Date getPaymentDate()
+	public Calendar getPaymentDate()
 	{
 		return paymentDate;
 	}
 
-	public void setPaymentDate(Date paymentDate) 
+	public void setPaymentDate(Calendar paymentDate) 
 	{
 		this.paymentDate = paymentDate;
 	}

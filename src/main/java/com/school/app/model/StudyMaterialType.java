@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,12 +12,11 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
 public class StudyMaterialType {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 1)
 	private int studymaterialTypeId;
 	
@@ -27,8 +25,7 @@ public class StudyMaterialType {
 	@Size(max = 15)
 	private String studymaterialType;
 	
-	
-	@OneToMany(mappedBy = "studyMaterialType",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "studyMaterialType",cascade = CascadeType.ALL)
 	private List<StudyMaterial> studyMaterial;
 
 	//default Constructor
@@ -69,7 +66,7 @@ public class StudyMaterialType {
 		this.studymaterialType = studymaterialType;
 	}
 
-	public List<StudyMaterial> getStudyMaterial()
+	/*public List<StudyMaterial> getStudyMaterial()
 	{
 		return studyMaterial;
 	}
@@ -77,7 +74,7 @@ public class StudyMaterialType {
 	public void setStudyMaterial(List<StudyMaterial> studyMaterial) 
 	{
 		this.studyMaterial = studyMaterial;
-	}
+	}*/
 
 
 	@Override

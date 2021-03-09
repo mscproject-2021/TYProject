@@ -1,43 +1,39 @@
 package com.school.app.model;
 
-import java.time.Year;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
 public class Attendance {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 5)
 	private int attendanceId;
 	
-	// one Student has many attendance
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Student student;
 	
 	@NotNull
 	@Column(length = 2,nullable = false)
-	@Size(max = 2)
 	private int totalDays;
 	
 	@NotNull
 	@Column(length = 2,nullable = false)
-	@Size(min = 1, max = 2)
 	private int presentDays;
 	
 	@NotNull
 	@Column(length = 2,nullable = false)
-	@Size(min = 1, max = 2)
 	private int absentDays;
 	
 	@NotNull
@@ -45,11 +41,10 @@ public class Attendance {
 	@Size(max = 10)
 	private String Month;
 	
-	// i add year here
 	@NotNull
-	@Column(length = 4,nullable = false)
-	@Size(max = 4)
-	private Year year;
+	@Column(nullable = false,columnDefinition = "DATE")
+	@JsonFormat(pattern = "yyyy")
+	private Calendar year;
 
 	//default Constructor
 	public Attendance()
@@ -60,8 +55,7 @@ public class Attendance {
 	//Parameterized Constructor
 	public Attendance(int attendanceId, Student student, @NotNull @Size(max = 2) int totalDays,
 			@NotNull @Size(min = 1, max = 2) int presentDays, @NotNull @Size(min = 1, max = 2) int absentDays,
-			@NotNull @Size(max = 10) String month, @NotNull @Size(max = 4) Year year) 
-	{
+			@NotNull @Size(max = 10) String month, @NotNull Calendar year) {
 		super();
 		this.attendanceId = attendanceId;
 		this.student = student;
@@ -73,79 +67,64 @@ public class Attendance {
 	}
 
 	//getters and setters
-	public int getAttendanceId() 
-	{
+	public int getAttendanceId() {
 		return attendanceId;
 	}
 
-	public void setAttendanceId(int attendanceId)
-	{
+	public void setAttendanceId(int attendanceId) {
 		this.attendanceId = attendanceId;
 	}
 
-	public Student getStudent() 
-	{
+	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(Student student) 
-	{
+	public void setStudent(Student student) {
 		this.student = student;
 	}
 
-	public int getTotalDays() 
-	{
+	public int getTotalDays() {
 		return totalDays;
 	}
 
-	public void setTotalDays(int totalDays) 
-	{
+	public void setTotalDays(int totalDays) {
 		this.totalDays = totalDays;
 	}
 
-	public int getPresentDays()
-	{
+	public int getPresentDays() {
 		return presentDays;
 	}
 
-	public void setPresentDays(int presentDays)
-	{
+	public void setPresentDays(int presentDays) {
 		this.presentDays = presentDays;
 	}
 
-	public int getAbsentDays() 
-	{
+	public int getAbsentDays() {
 		return absentDays;
 	}
 
-	public void setAbsentDays(int absentDays) 
-	{
+	public void setAbsentDays(int absentDays) {
 		this.absentDays = absentDays;
 	}
 
-	public String getMonth() 
-	{
+	public String getMonth() {
 		return Month;
 	}
 
-	public void setMonth(String month)
-	{
+	public void setMonth(String month) {
 		Month = month;
 	}
 
-	public Year getYear() 
-	{
+	public Calendar getYear() {
 		return year;
 	}
 
-	public void setYear(Year year)
-	{
+	public void setYear(Calendar year) {
 		this.year = year;
 	}
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "Attendance [attendanceId=" + attendanceId + ", student=" + student + ", totalDays=" + totalDays
 				+ ", presentDays=" + presentDays + ", absentDays=" + absentDays + ", Month=" + Month + ", year=" + year
 				+ "]";

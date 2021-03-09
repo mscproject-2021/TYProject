@@ -1,16 +1,20 @@
 package com.school.app.model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+//import javax.persistence.Temporal;
+//import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 
@@ -18,7 +22,7 @@ import javax.validation.constraints.Size;
 public class Event {
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.SEQUENCE)
+		@GeneratedValue(strategy = GenerationType.AUTO)
 		@Column(updatable = false,length = 4)
 		private int eventId;
 		
@@ -28,24 +32,26 @@ public class Event {
 		private String eventName;
 		
 		@NotNull
-		@Column(nullable = false)
-		@Temporal(TemporalType.DATE)
-		private Date eventStartdate;
+		@Column(nullable = false,columnDefinition = "DATE")
+		@CreatedDate
+		@JsonFormat(pattern = "dd-MM-yyyy")
+		private Calendar eventStartdate;
 		
 		@NotNull
-		@Column(nullable = false)
-		@Temporal(TemporalType.DATE)
-		private Date eventEnddate;
+		@Column(nullable = false,columnDefinition = "DATE")
+		@CreatedDate
+		@JsonFormat(pattern = "dd-MM-yyyy")
+		private Calendar eventEnddate;
 		
 		@NotNull
-		@Column(nullable = false)
-		@Temporal(TemporalType.TIME)
-		private Date eventStarttime;
+		@Column(nullable = false,columnDefinition = "TIME")
+		@JsonFormat(pattern = "HH-mm-ss")
+		private Calendar eventStarttime;
 		
 		@NotNull
-		@Column(nullable = false)
-		@Temporal(TemporalType.TIME)
-		private Date eventEndtime;
+		@Column(nullable = false,columnDefinition = "TIME")
+		@JsonFormat(pattern = "HH-mm-ss")
+		private Calendar eventEndtime;
 		
 		@Column(length = 100)
 		@Size(max = 100)
@@ -58,8 +64,8 @@ public class Event {
 		}
 
 		//Parameterized Constructor
-		public Event(int eventId, @NotNull @Size(max = 30) String eventName, @NotNull Date eventStartdate,
-				@NotNull Date eventEnddate, @NotNull Date eventStarttime, @NotNull Date eventEndtime,
+		public Event(int eventId, @NotNull @Size(max = 30) String eventName, @NotNull @NotNull Calendar eventStartdate,
+				@NotNull @NotNull Calendar eventEnddate, @NotNull @NotNull Calendar eventStarttime, @NotNull @NotNull Calendar eventEndtime,
 				@Size(max = 100) String eventDescription) 
 		{
 			super();
@@ -93,42 +99,42 @@ public class Event {
 			this.eventName = eventName;
 		}
 
-		public Date getEventStartdate()
+		public Calendar getEventStartdate()
 		{
 			return eventStartdate;
 		}
 
-		public void setEventStartdate(Date eventStartdate)
+		public void setEventStartdate(Calendar eventStartdate)
 		{
 			this.eventStartdate = eventStartdate;
 		}
 
-		public Date getEventEnddate() 
+		public Calendar getEventEnddate() 
 		{
 			return eventEnddate;
 		}
 
-		public void setEventEnddate(Date eventEnddate) 
+		public void setEventEnddate(Calendar eventEnddate) 
 		{
 			this.eventEnddate = eventEnddate;
 		}
 
-		public Date getEventStarttime()
+		public Calendar getEventStarttime()
 		{
 			return eventStarttime;
 		}
 
-		public void setEventStarttime(Date eventStarttime) 
+		public void setEventStarttime(Calendar eventStarttime) 
 		{
 			this.eventStarttime = eventStarttime;
 		}
 
-		public Date getEventEndtime() 
+		public Calendar getEventEndtime() 
 		{
 			return eventEndtime;
 		}
 
-		public void setEventEndtime(Date eventEndtime) 
+		public void setEventEndtime(Calendar eventEndtime) 
 		{
 			this.eventEndtime = eventEndtime;
 		}

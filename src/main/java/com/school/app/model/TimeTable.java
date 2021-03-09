@@ -3,7 +3,6 @@ package com.school.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,21 +14,18 @@ import javax.validation.constraints.Size;
 public class TimeTable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 3)
 	private int timetableId; 
 	
-	//one standard has many timetable
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Standard standard;
 	
-	//one teacher has many timetable
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Teacher teacher;
 	
-	//many users are belong to one timetable
-	@ManyToOne(fetch = FetchType.LAZY)
-	private UserType userType;
+	@ManyToOne
+	private UserType usertype;
 	
 	@NotNull
 	@Size(max = 255)
@@ -43,73 +39,60 @@ public class TimeTable {
 	}
 
 	//Parameterized Constructor
-	public TimeTable(int timetableId, Standard standard, Teacher teacher, UserType userType,
-			@NotNull @Size(max = 255) String timetableFile)
-	{
+	public TimeTable(int timetableId, Standard standard, Teacher teacher, UserType usertype,
+			@NotNull @Size(max = 255) String timetableFile) {
 		super();
 		this.timetableId = timetableId;
 		this.standard = standard;
 		this.teacher = teacher;
-		this.userType = userType;
+		this.usertype = usertype;
 		this.timetableFile = timetableFile;
 	}
 
 	//getters and setters
-	public int getTimetableId() 
-	{
+	public int getTimetableId() {
 		return timetableId;
 	}
 
-	public void setTimetableId(int timetableId) 
-	{
+	public void setTimetableId(int timetableId) {
 		this.timetableId = timetableId;
 	}
 
-	public Standard getStandard() 
-	{
+	public Standard getStandard() {
 		return standard;
 	}
 
-	public void setStandard(Standard standard) 
-	{
+	public void setStandard(Standard standard) {
 		this.standard = standard;
 	}
 
-	public Teacher getTeacher()
-	{
+	public Teacher getTeacher() {
 		return teacher;
 	}
 
-	public void setTeacher(Teacher teacher)
-	{
+	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
 
-	public UserType getUserType()
-	{
-		return userType;
+	public UserType getUsertype() {
+		return usertype;
 	}
 
-	public void setUserType(UserType userType) 
-	{
-		this.userType = userType;
+	public void setUsertype(UserType usertype) {
+		this.usertype = usertype;
 	}
 
-	public String getTimetableFile()
-	{
+	public String getTimetableFile() {
 		return timetableFile;
 	}
 
-	public void setTimetableFile(String timetableFile)
-	{
+	public void setTimetableFile(String timetableFile) {
 		this.timetableFile = timetableFile;
 	}
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "TimeTable [timetableId=" + timetableId + ", standard=" + standard + ", teacher=" + teacher
-				+ ", userType=" + userType + ", timetableFile=" + timetableFile + "]";
-	}
-	
+				+ ", usertype=" + usertype + ", timetableFile=" + timetableFile + "]";
+	}	
 }
