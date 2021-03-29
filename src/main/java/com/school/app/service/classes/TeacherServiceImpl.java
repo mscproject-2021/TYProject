@@ -46,7 +46,7 @@ public class TeacherServiceImpl implements TeacherService
 	}
 
 	@Override
-	public ResponseEntity<Object> getTeacheById(int id) 
+	public ResponseEntity<Object> getTeacherById(int id) 
 	{
 		Teacher teacher =  teacherrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(teacher);
@@ -60,16 +60,12 @@ public class TeacherServiceImpl implements TeacherService
 		{
 			teacherById.setAddress1(teacher.getAddress1());
 			teacherById.setAddress2(teacher.getAddress2());
-			teacherById.setContactno(teacher.getContactno());
-			teacherById.setEmailId(teacher.getEmailId());
 			teacherById.setGender(teacher.getGender());
 			teacherById.setImage(teacher.getImage());
 			teacherById.setJoiningDate(teacher.getJoiningDate());
-			teacherById.setPassword(teacher.getPassword());
 			teacherById.setPincode(teacher.getPincode());
 			teacherById.setQualification(teacher.getQualification());
-			teacherById.setTeacherName(teacher.getTeacherName());
-			teacherById.setUserName(teacher.getUserName());
+	
 			
 			teacherrepository.save(teacherById);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(teacherById);

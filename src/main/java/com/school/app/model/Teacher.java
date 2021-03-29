@@ -2,12 +2,15 @@ package com.school.app.model;
 
 import java.util.Calendar;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -32,20 +35,8 @@ public class Teacher
 	@ManyToMany
 	private List<Subject> subject;
 	
-	@NotNull
-	@Size(max = 20)
-	@Column(length = 20,nullable = false,unique = true)
-	private String userName;
-	
-	@NotNull
-	@Size(min = 8,max = 15)
-	@Column(length = 15,nullable = false)
-	private String password;
-	
-	@NotNull
-	@Size(max = 50)
-	@Column(length = 50,nullable = false)
-	private String teacherName;
+	@OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
+	private User user;
 	
 	@NotNull
 	@Size(max = 6)
@@ -63,15 +54,6 @@ public class Teacher
 	@Column(length = 40,nullable = false)
 	private String qualification;
 	
-	@NotNull
-	@Size(max = 40)
-	@Column(length = 40,nullable = false)
-	private String emailId;
-	
-	@NotNull
-	@Size(max = 10)
-	@Column(length = 10,nullable = false)
-	private String contactno;
 	
 	@NotNull
 	@Size(max = 100)
@@ -98,30 +80,24 @@ public class Teacher
 	}
 
 	//Parameterized Constructor
-	public Teacher(int teacherId, List<Standard> standard, List<Subject> subject,
-			@NotNull @Size(max = 20) String userName, @NotNull @Size(min = 8, max = 15) String password,
-			@NotNull @Size(max = 50) String teacherName, @NotNull @Size(max = 6) String gender,
-			@NotNull Calendar joiningDate, @NotNull @Size(max = 40) String qualification,
-			@NotNull @Size(max = 40) String emailId, @NotNull @Size(max = 10) String contactno,
-			@NotNull @Size(max = 100) String address1, @NotNull @Size(max = 100) String address2, @NotNull int pincode,
-			@Size(max = 255) String image) {
+	public Teacher(int teacherId, List<Standard> standard, List<Subject> subject, User user,
+			@NotNull @Size(max = 6) String gender, @NotNull Calendar joiningDate,
+			@NotNull @Size(max = 40) String qualification, @NotNull @Size(max = 100) String address1,
+			@NotNull @Size(max = 100) String address2, @NotNull int pincode, @Size(max = 255) String image) {
 		super();
 		this.teacherId = teacherId;
 		this.standard = standard;
 		this.subject = subject;
-		this.userName = userName;
-		this.password = password;
-		this.teacherName = teacherName;
+		this.user = user;
 		this.gender = gender;
 		this.joiningDate = joiningDate;
 		this.qualification = qualification;
-		this.emailId = emailId;
-		this.contactno = contactno;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.pincode = pincode;
 		this.image = image;
 	}
+	
 	//getters and setters
 
 	public int getTeacherId() {
@@ -132,10 +108,19 @@ public class Teacher
 		this.teacherId = teacherId;
 	}
 
+	
 	public List<Standard> getStandard() {
 		return standard;
 	}
 
+	/*public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}*/
+	
 	public void setStandard(List<Standard> standard) {
 		this.standard = standard;
 	}
@@ -146,30 +131,6 @@ public class Teacher
 
 	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getTeacherName() {
-		return teacherName;
-	}
-
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
 	}
 
 	public String getGender() {
@@ -196,21 +157,6 @@ public class Teacher
 		this.qualification = qualification;
 	}
 
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	public String getContactno() {
-		return contactno;
-	}
-
-	public void setContactno(String contactno) {
-		this.contactno = contactno;
-	}
 
 	public String getAddress1() {
 		return address1;
@@ -246,12 +192,9 @@ public class Teacher
 
 	@Override
 	public String toString() {
-		return "Teacher [teacherId=" + teacherId + ", standard=" + standard + ", subject=" + subject + ", userName="
-				+ userName + ", password=" + password + ", teacherName=" + teacherName + ", gender=" + gender
-				+ ", joiningDate=" + joiningDate + ", qualification=" + qualification + ", emailId=" + emailId
-				+ ", contactno=" + contactno + ", address1=" + address1 + ", address2=" + address2 + ", pincode="
-				+ pincode + ", image=" + image + "]";
+		return "Teacher [teacherId=" + teacherId + ", standard=" + standard + ", subject=" + subject + ", gender="
+				+ gender + ", joiningDate=" + joiningDate + ", qualification=" + qualification  + ", address1=" + address1 + ", address2=" + address2 + ", pincode=" + pincode + ", image="
+				+ image + "]";
 	}
-	
 
 }

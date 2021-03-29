@@ -12,7 +12,7 @@ public interface TeacherService
 	
 	public ResponseEntity<List<Teacher>> getAllTeachers();
 	
-	public ResponseEntity<Object> getTeacheById(int id);
+	public ResponseEntity<Object> getTeacherById(int id);
 	
 	public ResponseEntity<Object> updateTeacher(Teacher teacher,int id);
 	

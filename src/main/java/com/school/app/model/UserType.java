@@ -20,12 +20,12 @@ public class UserType {
 	private int usertypeId;
 	
 	@OneToMany(mappedBy = "usertype")
-	private List<Login> login;
+	private List<User> user;
 	
 	@OneToMany(mappedBy = "usertype")
 	private List<Meeting> meeting;
 	
-
+	
 	@Column(length = 7 ,nullable = false)
 	@Size(max = 7)
 	@NotNull
@@ -36,41 +36,30 @@ public class UserType {
 	{
 		super();
 	}
-
+	
 	//Parameterized Constructor
-	public UserType(int usertypeId, List<Login> login, List<Meeting> meeting, @Size(max = 7) @NotNull String userType) {
+	public UserType(int usertypeId, List<User> user, List<Meeting> meeting, @Size(max = 7) @NotNull String userType) {
 		super();
 		this.usertypeId = usertypeId;
-		this.login = login;
+		this.user = user;
 		this.meeting = meeting;
 		this.userType = userType;
 	}
 
-	//getters and setters
 	public int getUsertypeId() {
 		return usertypeId;
 	}
 
-	
-
 	public void setUsertypeId(int usertypeId) {
 		this.usertypeId = usertypeId;
 	}
-	
-	public String getUserType() {
-		return userType;
+
+	/*public List<User> getUser() {
+		return user;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-
-	/*public List<Login> getLogin() {
-		return login;
-	}
-
-	public void setLogin(List<Login> login) {
-		this.login = login;
+	public void setUser(List<User> user) {
+		this.user = user;
 	}
 
 	public List<Meeting> getMeeting() {
@@ -81,10 +70,12 @@ public class UserType {
 		this.meeting = meeting;
 	}*/
 
-	@Override
-	public String toString() {
-		return "UserType [usertypeId=" + usertypeId + ", login=" + login + ", meeting=" + meeting  + ", userType=" + userType + "]";
+	public String getUserType() {
+		return userType;
 	}
 
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
 }

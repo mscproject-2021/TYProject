@@ -50,14 +50,9 @@ public class AdminServiceImpl implements AdminService
 		{
 			adminById.setAddress1(admin.getAddress1());
 			adminById.setAddress2(admin.getAddress2());
-			adminById.setAdminName(admin.getAdminName());
-			adminById.setContactNo(admin.getContactNo());
-			adminById.setEmailId(admin.getEmailId());
 			adminById.setGender(admin.getImage());
 			adminById.setJoiningDate(admin.getJoiningDate());
-			adminById.setPassword(admin.getPassword());
 			adminById.setPincode(admin.getPincode());
-			adminById.setUsername(admin.getUsername());
 			adminById.setGender(admin.getGender());
 			
 			adminrepository.save(adminById);

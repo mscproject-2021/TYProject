@@ -34,7 +34,7 @@ public class TeacherController
 	@GetMapping("/teacher/{id}")
 	public ResponseEntity<Object> getTeacher(@PathVariable int id)
 	{
-		return teacherservice.getTeacheById(id);
+		return teacherservice.getTeacherById(id);
 	}
 	
 	@PostMapping("/teacher")
