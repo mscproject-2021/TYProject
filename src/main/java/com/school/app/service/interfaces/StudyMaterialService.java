@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.school.app.model.StudyMaterial;
+import com.school.app.model.StudyMaterialType;
 
 public interface StudyMaterialService 
 {
@@ -16,9 +17,10 @@ public interface StudyMaterialService
 	
 	public  ResponseEntity<Object> getStudyMaterialById(int id);
 	
- 	public  ResponseEntity<Object> updateStudyMaterial(int id, StudyMaterial studyMaterial);
+ 	public  ResponseEntity<Object> updateStudyMaterial(StudyMaterial studyMaterial,int id);
  	
  	public 	ResponseEntity<Object> deleteStudyMaterialById(int id);
  	
  	//StudyMaterialType
+ 	public 	ResponseEntity<List<StudyMaterialType>> getAllStudyMaterialTypes();
 }

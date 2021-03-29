@@ -57,7 +57,6 @@ public class ParentServiceImpl implements ParentService
 		Parent parentById =  parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
 		try
 		{
-			parentById.setNoOfChild(parent.getNoOfChild());
 			parentById.setUserName(parent.getUserName());
 			parentById.setContactNo1(parent.getContactNo1());
 			parentById.setContactNo2(parent.getContactNo2());

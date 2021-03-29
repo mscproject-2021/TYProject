@@ -25,6 +25,12 @@ public class Meeting {
 	@ManyToOne
 	private UserType usertype;
 	
+	@ManyToOne
+	private Standard standard;
+	
+	@ManyToOne
+	private Division division;
+	
 	@NotNull
 	@Column(length = 20,nullable = false)
 	@Size(max = 20)
@@ -57,12 +63,15 @@ public class Meeting {
 	}
 
 	//Parameterized Constructor
-	public Meeting(int meetingId, UserType usertype, @NotNull @Size(max = 20) String meetingName,
-			@NotNull Calendar meetingDate, @NotNull Calendar meetingStartTime, @NotNull Calendar meetingEndTime,
+	public Meeting(int meetingId, UserType usertype, Standard standard, Division division,
+			@NotNull @Size(max = 20) String meetingName, @NotNull Calendar meetingDate,
+			@NotNull Calendar meetingStartTime, @NotNull Calendar meetingEndTime,
 			@Size(max = 100) String meetingDescription) {
 		super();
 		this.meetingId = meetingId;
 		this.usertype = usertype;
+		this.standard = standard;
+		this.division = division;
 		this.meetingName = meetingName;
 		this.meetingDate = meetingDate;
 		this.meetingStartTime = meetingStartTime;
@@ -70,7 +79,6 @@ public class Meeting {
 		this.meetingDescription = meetingDescription;
 	}
 
-	//getters and setters
 	public int getMeetingId() {
 		return meetingId;
 	}
@@ -85,6 +93,22 @@ public class Meeting {
 
 	public void setUsertype(UserType usertype) {
 		this.usertype = usertype;
+	}
+
+	public Standard getStandard() {
+		return standard;
+	}
+
+	public void setStandard(Standard standard) {
+		this.standard = standard;
+	}
+
+	public Division getDivision() {
+		return division;
+	}
+
+	public void setDivision(Division division) {
+		this.division = division;
 	}
 
 	public String getMeetingName() {
@@ -129,8 +153,9 @@ public class Meeting {
 
 	@Override
 	public String toString() {
-		return "Meeting [meetingId=" + meetingId + ", usertype=" + usertype + ", meetingName=" + meetingName
-				+ ", meetingDate=" + meetingDate + ", meetingStartTime=" + meetingStartTime + ", meetingEndTime="
-				+ meetingEndTime + ", meetingDescription=" + meetingDescription + "]";
-	}	
+		return "Meeting [meetingId=" + meetingId + ", usertype=" + usertype + ", standard=" + standard + ", division="
+				+ division + ", meetingName=" + meetingName + ", meetingDate=" + meetingDate + ", meetingStartTime="
+				+ meetingStartTime + ", meetingEndTime=" + meetingEndTime + ", meetingDescription=" + meetingDescription
+				+ "]";
+	}
 }

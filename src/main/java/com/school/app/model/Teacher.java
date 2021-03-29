@@ -2,14 +2,12 @@ package com.school.app.model;
 
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -28,14 +26,11 @@ public class Teacher
 	@Column(length = 2,updatable = false)
 	private int teacherId;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Standard> standard;
 	
-	@ManyToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Subject> subject;
-	
-	@OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
-	private List<TimeTable> timeTable;
 	
 	@NotNull
 	@Size(max = 20)
@@ -103,18 +98,17 @@ public class Teacher
 	}
 
 	//Parameterized Constructor
-	public Teacher(int teacherId, List<Standard> standard, List<Subject> subject, List<TimeTable> timeTable,
+	public Teacher(int teacherId, List<Standard> standard, List<Subject> subject,
 			@NotNull @Size(max = 20) String userName, @NotNull @Size(min = 8, max = 15) String password,
 			@NotNull @Size(max = 50) String teacherName, @NotNull @Size(max = 6) String gender,
 			@NotNull Calendar joiningDate, @NotNull @Size(max = 40) String qualification,
 			@NotNull @Size(max = 40) String emailId, @NotNull @Size(max = 10) String contactno,
-			@NotNull @Size(max = 100) String address1, @NotNull @Size(max = 100) String address2,
-			@NotNull @Size(max = 6) int pincode, @Size(max = 255) String image) {
+			@NotNull @Size(max = 100) String address1, @NotNull @Size(max = 100) String address2, @NotNull int pincode,
+			@Size(max = 255) String image) {
 		super();
 		this.teacherId = teacherId;
 		this.standard = standard;
 		this.subject = subject;
-		this.timeTable = timeTable;
 		this.userName = userName;
 		this.password = password;
 		this.teacherName = teacherName;
@@ -128,8 +122,8 @@ public class Teacher
 		this.pincode = pincode;
 		this.image = image;
 	}
-
 	//getters and setters
+
 	public int getTeacherId() {
 		return teacherId;
 	}
@@ -138,29 +132,21 @@ public class Teacher
 		this.teacherId = teacherId;
 	}
 
-//	public List<Standard> getStandard() {
-//		return standard;
-//	}
-//
-//	public void setStandard(List<Standard> standard) {
-//		this.standard = standard;
-//	}
+	public List<Standard> getStandard() {
+		return standard;
+	}
 
-	/*public List<Subject> getSubject() {
+	public void setStandard(List<Standard> standard) {
+		this.standard = standard;
+	}
+
+	public List<Subject> getSubject() {
 		return subject;
 	}
 
 	public void setSubject(List<Subject> subject) {
 		this.subject = subject;
 	}
-
-	public List<TimeTable> getTimeTable() {
-		return timeTable;
-	}
-
-	public void setTimeTable(List<TimeTable> timeTable) {
-		this.timeTable = timeTable;
-	}*/
 
 	public String getUserName() {
 		return userName;
@@ -260,11 +246,12 @@ public class Teacher
 
 	@Override
 	public String toString() {
-		return "Teacher [teacherId=" + teacherId + ", standard=" + standard + ", subject=" + subject + ", timeTable="
-				+ timeTable + ", userName=" + userName + ", password=" + password + ", teacherName=" + teacherName
-				+ ", gender=" + gender + ", joiningDate=" + joiningDate + ", qualification=" + qualification
-				+ ", emailId=" + emailId + ", contactno=" + contactno + ", address1=" + address1 + ", address2="
-				+ address2 + ", pincode=" + pincode + ", image=" + image + "]";
+		return "Teacher [teacherId=" + teacherId + ", standard=" + standard + ", subject=" + subject + ", userName="
+				+ userName + ", password=" + password + ", teacherName=" + teacherName + ", gender=" + gender
+				+ ", joiningDate=" + joiningDate + ", qualification=" + qualification + ", emailId=" + emailId
+				+ ", contactno=" + contactno + ", address1=" + address1 + ", address2=" + address2 + ", pincode="
+				+ pincode + ", image=" + image + "]";
 	}
+	
 
 }

@@ -11,7 +11,7 @@ public interface AttendanceService
 	
 	public ResponseEntity<Object> getAttendanceById(int id);
 		
-	public ResponseEntity<Object> updateAdmin(Attendance attendance,int id);
+	public ResponseEntity<Object> updateAttendance(Attendance attendance,int id);
 	 	
 	public ResponseEntity<Object> deleteAttendanceById(int id);
 	 

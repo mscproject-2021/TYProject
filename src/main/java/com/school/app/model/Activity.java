@@ -1,7 +1,6 @@
 package com.school.app.model;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ public class Activity {
 	@Column(updatable = false,length = 5)
 	private int activityId;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "activity")
 	private List<Student> student;
 	
 	@NotNull
@@ -65,7 +64,7 @@ public class Activity {
 		this.activityId = activityId;
 	}
 
-	public List<Student> getStudent() 
+	/*public List<Student> getStudent() 
 	{
 		return student;
 	}
@@ -73,7 +72,7 @@ public class Activity {
 	public void setStudent(List<Student> student)
 	{
 		this.student = student;
-	}
+	}*/
 
 	public String getActivityName()
 	{

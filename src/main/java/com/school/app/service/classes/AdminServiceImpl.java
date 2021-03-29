@@ -1,5 +1,6 @@
 package com.school.app.service.classes;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class AdminServiceImpl implements AdminService
 	@Autowired
 	private SchoolDetailRepository schooldetailrepository;
 	
-	@Override
+	/*@Override
 	public ResponseEntity<Object> saveAdmin(Admin admin) 
 	{
 		try
@@ -33,7 +34,7 @@ public class AdminServiceImpl implements AdminService
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
-	}
+	}*/
 
 	@Override
 	public ResponseEntity<Object> getAdminById(int id) 
@@ -70,10 +71,14 @@ public class AdminServiceImpl implements AdminService
 	}
 
 	@Override
-	public ResponseEntity<Object> getSchoolDetailById(int id)
+	public ResponseEntity<List<SchoolDetail>> getAllSchoolDetails()
 	{
-		SchoolDetail schooldetail =  schooldetailrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("schooldetail not found for id" + id));
-		return ResponseEntity.status(HttpStatus.OK).body(schooldetail);
+		List<SchoolDetail> schooldetail_list = (List<SchoolDetail>)schooldetailrepository.findAll();
+		if(schooldetail_list.size() < 1)
+		{
+			throw new ResourceNotFoundException("schooldetail list not found");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(schooldetail_list);
 	}
 	
 	@Override

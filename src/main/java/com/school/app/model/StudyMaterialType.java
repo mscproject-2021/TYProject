@@ -1,8 +1,6 @@
 package com.school.app.model;
 
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +23,7 @@ public class StudyMaterialType {
 	@Size(max = 15)
 	private String studymaterialType;
 	
-	@OneToMany(mappedBy = "studyMaterialType",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "studyMaterialType")
 	private List<StudyMaterial> studyMaterial;
 
 	//default Constructor

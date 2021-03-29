@@ -48,12 +48,13 @@ public class FeePaymentServiceImpl implements FeePaymentService
 		{
 			feePaymentById.setFeesAmount(feePayment.getFeesAmount());
 			feePaymentById.setFeeStatus(feePayment.getFeeStatus());
-			feePaymentById.setInstallmentNo(feePaymentById.getInstallmentNo());
+			feePaymentById.setInstallmentNo(feePayment.getInstallmentNo());
 			feePaymentById.setLatefeesAmount(feePayment.getLatefeesAmount());
 			feePaymentById.setPaymentDate(feePayment.getPaymentDate());
 			feePaymentById.setPaymentMode(feePayment.getPaymentMode());
 			feePaymentById.setTotalfeesAmount(feePayment.getTotalfeesAmount());
 			
+			feepaymentrepository.save(feePaymentById);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(feePaymentById);
 		}
 		catch(Exception e)

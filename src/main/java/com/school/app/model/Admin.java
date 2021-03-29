@@ -14,8 +14,6 @@ import org.springframework.data.annotation.CreatedDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
-
-//@Component
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 @Entity
 public class Admin 

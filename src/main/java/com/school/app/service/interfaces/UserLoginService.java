@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.school.app.model.Login;
+import com.school.app.model.UserType;
 
 public interface UserLoginService 
 {
@@ -17,4 +18,6 @@ public interface UserLoginService
 	public ResponseEntity<List<Login>> getAllUserLogins();
 	
 	//UserType
+	
+	public ResponseEntity<List<UserType>> getAllUserTypes();
 }

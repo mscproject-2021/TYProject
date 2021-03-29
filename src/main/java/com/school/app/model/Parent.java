@@ -9,10 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,20 +22,14 @@ public class Parent
 {
 	@Id
 	@Column(length = 4 , updatable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int parentId;
 	
-	@OneToMany(mappedBy = "parent")
-	private List<Student> student;
+	@OneToOne
+	private Student student;
 	
 	@OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
 	private List<Query> query;
-	
-	@NotNull
-	@Max(3)
-	@Min(1)
-	@Column(length = 1,nullable = false)
-	private int noOfChild;
 	
 	@NotNull
 	@Size(max = 20)
@@ -83,8 +76,8 @@ public class Parent
 	}
 
 	//Parameterized Constructor
-	public Parent(int parentId, List<Student> student, List<Query> query, @NotNull @Size(max = 1) int noOfChild,
-			@Size(max = 20) String userName, @NotNull @Size(min = 8, max = 15) String password,
+	public Parent(int parentId, Student student, List<Query> query,
+			@NotNull @Size(max = 20) String userName, @NotNull @Size(min = 8, max = 15) String password,
 			@NotNull @Size(max = 50) String parentName, @Size(max = 40) String emailId,
 			@NotNull @Size(max = 10) String contactNo1, @Size(max = 10) String contactNo2,
 			@NotNull @Size(max = 20) String qualification, @NotNull @Size(max = 15) String occupation) {
@@ -92,7 +85,6 @@ public class Parent
 		this.parentId = parentId;
 		this.student = student;
 		this.query = query;
-		this.noOfChild = noOfChild;
 		this.userName = userName;
 		this.password = password;
 		this.parentName = parentName;
@@ -112,29 +104,21 @@ public class Parent
 		this.parentId = parentId;
 	}
 
-	/*public List<Student> getStudent() {
+	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(List<Student> student) {
+	public void setStudent(Student student) {
 		this.student = student;
-	}*/
-
-	/*public List<Query> getQuery() {
-		return query;
 	}
 
-	public void setQuery(List<Query> query) {
-		this.query = query;
-	}*/
-
-	public int getNoOfChild() {
-		return noOfChild;
-	}
-
-	public void setNoOfChild(int noOfChild) {
-		this.noOfChild = noOfChild;
-	}
+//	public List<Query> getQuery() {
+//		return query;
+//	}
+//
+//	public void setQuery(List<Query> query) {
+//		this.query = query;
+//	}
 
 	public String getUserName() {
 		return userName;
@@ -202,10 +186,9 @@ public class Parent
 
 	@Override
 	public String toString() {
-		return "Parent [parentId=" + parentId + ", student=" + student + ", query=" + query + ", noOfChild=" + noOfChild
-				+ ", userName=" + userName + ", password=" + password + ", parentName=" + parentName + ", emailId="
+		return "Parent [parentId=" + parentId + ", student=" + student + ", query=" + query +
+				", userName=" + userName + ", password=" + password + ", parentName=" + parentName + ", emailId="
 				+ emailId + ", contactNo1=" + contactNo1 + ", contactNo2=" + contactNo2 + ", qualification="
 				+ qualification + ", occupation=" + occupation + "]";
 	}
-
 }

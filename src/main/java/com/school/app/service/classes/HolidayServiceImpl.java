@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.school.app.exception.ResourceNotFoundException;
 import com.school.app.model.Holiday;
 import com.school.app.repository.HolidayRepository;
 import com.school.app.service.interfaces.HolidayService;
 
+@Service
 public class HolidayServiceImpl implements HolidayService
 {
 	@Autowired

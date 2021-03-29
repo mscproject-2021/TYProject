@@ -3,16 +3,12 @@ package com.school.app.model;
 import java.util.Calendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Range;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -24,79 +20,65 @@ public class Result
 	@Column(length = 5,updatable = false)
 	private int resultId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Student student;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Division division;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Standard standard;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private ExamType examtype;
+	@ManyToOne
+	private ExamType examType;
 	
 	@NotNull
 	@Column(nullable = false,columnDefinition = "DATE")
 	@JsonFormat(pattern = "yyyy")
 	private Calendar year;
 
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int gujarati;
+	private Integer gujarati;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int english;
+	private Integer english;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int environment;
+	private Integer environment;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int science;
+	private Integer science;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int socialscience;
+	private Integer socialscience;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int maths;
+	private Integer maths;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int hindi;
+	private Integer hindi;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int sanskrit;
+	private Integer sanskrit;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int pt;
+	private Integer pt;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int drawing;
+	private Integer drawing;
 	
-	@Range(min = 1,max = 3)
 	@Column(length = 3)
-	private int pathmala;
+	private Integer pathmala;
 	
 	@NotNull
-	@Range(min = 1,max = 3)
 	@Column(length = 3,nullable = false)
 	private int obtainedMarks;
 	
 	@NotNull
-	@Range(max = 2)
 	@Column(length = 2,nullable = false)
 	private int passingmMarks;
 	
 	@NotNull
-	@Range(max = 3)
 	@Column(length = 3,nullable = false)
 	private int totalMarks;
 	
@@ -112,20 +94,17 @@ public class Result
 	}
 
 	//Parameterized Constructor
-	public Result(int resultId, Student student, Division division, Standard standard, ExamType examtype,
-			@NotNull Calendar year, @Range(min = 1, max = 3) int gujarati, @Range(min = 1, max = 3) int english,
-			@Range(min = 1, max = 3) int environment, @Range(min = 1, max = 3) int science,
-			@Range(min = 1, max = 3) int socialscience, @Range(min = 1, max = 3) int maths,
-			@Range(min = 1, max = 3) int hindi, @Range(min = 1, max = 3) int sanskrit, @Range(min = 1, max = 3) int pt,
-			@Range(min = 1, max = 3) int drawing, @Range(min = 1, max = 3) int pathmala,
-			@NotNull @Range(min = 1, max = 3) int obtainedMarks, @NotNull @Range(max = 2) int passingmMarks,
-			@NotNull @Range(max = 3) int totalMarks, @NotNull @Size(max = 2) String grade) {
+	public Result(int resultId, Student student, Division division, Standard standard, ExamType examType,
+			@NotNull Calendar year, Integer gujarati, Integer english, Integer environment, Integer science,
+			Integer socialscience, Integer maths, Integer hindi, Integer sanskrit, Integer pt, Integer drawing,
+			Integer pathmala, @NotNull int obtainedMarks, @NotNull int passingmMarks, @NotNull int totalMarks,
+			@NotNull @Size(max = 2) String grade) {
 		super();
 		this.resultId = resultId;
 		this.student = student;
 		this.division = division;
 		this.standard = standard;
-		this.examtype = examtype;
+		this.examType = examType;
 		this.year = year;
 		this.gujarati = gujarati;
 		this.english = english;
@@ -144,8 +123,6 @@ public class Result
 		this.grade = grade;
 	}
 
-
-	//getters and setters
 	public int getResultId() {
 		return resultId;
 	}
@@ -178,12 +155,12 @@ public class Result
 		this.standard = standard;
 	}
 
-	public ExamType getExamtype() {
-		return examtype;
+	public ExamType getExamType() {
+		return examType;
 	}
 
-	public void setExamtype(ExamType examtype) {
-		this.examtype = examtype;
+	public void setExamType(ExamType examType) {
+		this.examType = examType;
 	}
 
 	public Calendar getYear() {
@@ -194,91 +171,91 @@ public class Result
 		this.year = year;
 	}
 
-	public int getGujarati() {
+	public Integer getGujarati() {
 		return gujarati;
 	}
 
-	public void setGujarati(int gujarati) {
+	public void setGujarati(Integer gujarati) {
 		this.gujarati = gujarati;
 	}
 
-	public int getEnglish() {
+	public Integer getEnglish() {
 		return english;
 	}
 
-	public void setEnglish(int english) {
+	public void setEnglish(Integer english) {
 		this.english = english;
 	}
 
-	public int getEnvironment() {
+	public Integer getEnvironment() {
 		return environment;
 	}
 
-	public void setEnvironment(int environment) {
+	public void setEnvironment(Integer environment) {
 		this.environment = environment;
 	}
 
-	public int getScience() {
+	public Integer getScience() {
 		return science;
 	}
 
-	public void setScience(int science) {
+	public void setScience(Integer science) {
 		this.science = science;
 	}
 
-	public int getSocialscience() {
+	public Integer getSocialscience() {
 		return socialscience;
 	}
 
-	public void setSocialscience(int socialscience) {
+	public void setSocialscience(Integer socialscience) {
 		this.socialscience = socialscience;
 	}
 
-	public int getMaths() {
+	public Integer getMaths() {
 		return maths;
 	}
 
-	public void setMaths(int maths) {
+	public void setMaths(Integer maths) {
 		this.maths = maths;
 	}
 
-	public int getHindi() {
+	public Integer getHindi() {
 		return hindi;
 	}
 
-	public void setHindi(int hindi) {
+	public void setHindi(Integer hindi) {
 		this.hindi = hindi;
 	}
 
-	public int getSanskrit() {
+	public Integer getSanskrit() {
 		return sanskrit;
 	}
 
-	public void setSanskrit(int sanskrit) {
+	public void setSanskrit(Integer sanskrit) {
 		this.sanskrit = sanskrit;
 	}
 
-	public int getPt() {
+	public Integer getPt() {
 		return pt;
 	}
 
-	public void setPt(int pt) {
+	public void setPt(Integer pt) {
 		this.pt = pt;
 	}
 
-	public int getDrawing() {
+	public Integer getDrawing() {
 		return drawing;
 	}
 
-	public void setDrawing(int drawing) {
+	public void setDrawing(Integer drawing) {
 		this.drawing = drawing;
 	}
 
-	public int getPathmala() {
+	public Integer getPathmala() {
 		return pathmala;
 	}
 
-	public void setPathmala(int pathmala) {
+	public void setPathmala(Integer pathmala) {
 		this.pathmala = pathmala;
 	}
 
@@ -317,14 +294,10 @@ public class Result
 	@Override
 	public String toString() {
 		return "Result [resultId=" + resultId + ", student=" + student + ", division=" + division + ", standard="
-				+ standard + ", examtype=" + examtype + ", year=" + year + ", gujarati=" + gujarati + ", english="
+				+ standard + ", examType=" + examType + ", year=" + year + ", gujarati=" + gujarati + ", english="
 				+ english + ", environment=" + environment + ", science=" + science + ", socialscience=" + socialscience
 				+ ", maths=" + maths + ", hindi=" + hindi + ", sanskrit=" + sanskrit + ", pt=" + pt + ", drawing="
 				+ drawing + ", pathmala=" + pathmala + ", obtainedMarks=" + obtainedMarks + ", passingmMarks="
 				+ passingmMarks + ", totalMarks=" + totalMarks + ", grade=" + grade + "]";
 	}
-
-	
-	
-	
 }

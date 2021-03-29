@@ -2,7 +2,6 @@ package com.school.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,8 +17,19 @@ public class ResultFile
 	@Column(length = 5,updatable = false)
 	private int resultId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Division division;
+	
+	@ManyToOne
+	private Standard standard;
+	
+	@ManyToOne
+	private ExamType examType;
+	
+	@NotNull 
+	@Size(max = 100)
+	@Column(length = 100, nullable = false)
+	private String description;
 	
 	@NotNull
 	@Size(max = 255)
@@ -31,10 +41,14 @@ public class ResultFile
 		super();
 	}
 
-	public ResultFile(int resultId, Division division, @NotNull @Size(max = 255) String resultFile) {
+	public ResultFile(int resultId, Division division, Standard standard, ExamType examType,
+			@NotNull @Size(max = 100) String description, @NotNull @Size(max = 255) String resultFile) {
 		super();
 		this.resultId = resultId;
 		this.division = division;
+		this.standard = standard;
+		this.examType = examType;
+		this.description = description;
 		this.resultFile = resultFile;
 	}
 
@@ -54,6 +68,30 @@ public class ResultFile
 		this.division = division;
 	}
 
+	public Standard getStandard() {
+		return standard;
+	}
+
+	public void setStandard(Standard standard) {
+		this.standard = standard;
+	}
+
+	public ExamType getExamType() {
+		return examType;
+	}
+
+	public void setExamType(ExamType examType) {
+		this.examType = examType;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public String getResultFile() {
 		return resultFile;
 	}
@@ -64,6 +102,7 @@ public class ResultFile
 
 	@Override
 	public String toString() {
-		return "ResultFile [resultId=" + resultId + ", division=" + division + ", resultFile=" + resultFile + "]";
+		return "ResultFile [resultId=" + resultId + ", division=" + division + ", standard=" + standard + ", examType="
+				+ examType + ", description=" + description + ", resultFile=" + resultFile + "]";
 	}
 }

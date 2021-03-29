@@ -22,7 +22,7 @@ public class Subject
 	@ManyToMany
 	private List<Standard> standard;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "standard")
 	private List<Teacher> teacher;
 	
 	@Column(length = 15,nullable = false)
@@ -69,7 +69,7 @@ public class Subject
 		this.standard = standard;
 	}
 
-	public List<Teacher> getTeacher() 
+	/*public List<Teacher> getTeacher() 
 	{
 		return teacher;
 	}
@@ -77,7 +77,7 @@ public class Subject
 	public void setTeacher(List<Teacher> teacher) 
 	{
 		this.teacher = teacher;
-	}
+	}*/
 
 	public String getSubjectName() 
 	{

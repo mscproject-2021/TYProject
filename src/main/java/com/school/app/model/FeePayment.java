@@ -34,7 +34,7 @@ public class FeePayment {
 	private int feesAmount;
 	
 	@Column(length = 3)
-	private int latefeesAmount;
+	private Integer latefeesAmount;
 	
 	@NotNull
 	@Column(length = 4,nullable = false)
@@ -53,7 +53,7 @@ public class FeePayment {
 	
 	@NotNull
 	@Column(length = 1,nullable = false)
-	private int InstallmentNo;
+	private Integer InstallmentNo;
 
 	//default Constructor
 	public FeePayment() 
@@ -62,11 +62,9 @@ public class FeePayment {
 	}
 
 	//Parameterized Constructor
-	public FeePayment(int paymentId, Student student, @NotNull @Size(max = 5) String paymentMode,
-			@NotNull @Size(max = 4) int feesAmount, @Size(max = 3) int latefeesAmount,
-			@NotNull @Size(max = 4) int totalfeesAmount, @NotNull @Size(max = 6) String feeStatus,
-			@NotNull Calendar paymentDate, @NotNull @Size(max = 1) int installmentNo)
-	{
+	public FeePayment(int paymentId, Student student, @NotNull @Size(max = 7) String paymentMode,
+			@NotNull int feesAmount, Integer latefeesAmount, @NotNull int totalfeesAmount,
+			@NotNull @Size(max = 6) String feeStatus, @NotNull Calendar paymentDate, @NotNull Integer installmentNo) {
 		super();
 		this.paymentId = paymentId;
 		this.student = student;
@@ -80,103 +78,86 @@ public class FeePayment {
 	}
 
 	//getters and setters
-	public int getPaymentId() 
-	{
+	public int getPaymentId() {
 		return paymentId;
 	}
 
-	public void setPaymentId(int paymentId) 
-	{
+	public void setPaymentId(int paymentId) {
 		this.paymentId = paymentId;
 	}
 
-	public Student getStudent()
-	{
+	public Student getStudent() {
 		return student;
 	}
 
-	public void setStudent(Student student) 
-	{
+	public void setStudent(Student student) {
 		this.student = student;
 	}
 
-	public String getPaymentMode()
-	{
+	public String getPaymentMode() {
 		return paymentMode;
 	}
 
-	public void setPaymentMode(String paymentMode)
-	{
+	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
 
-	public int getFeesAmount() 
-	{
+	public int getFeesAmount() {
 		return feesAmount;
 	}
 
-	public void setFeesAmount(int feesAmount) 
-	{
+	public void setFeesAmount(int feesAmount) {
 		this.feesAmount = feesAmount;
 	}
 
-	public int getLatefeesAmount()
-	{
+	public Integer getLatefeesAmount() {
 		return latefeesAmount;
 	}
 
-	public void setLatefeesAmount(int latefeesAmount) 
-	{
+	public void setLatefeesAmount(Integer latefeesAmount) {
 		this.latefeesAmount = latefeesAmount;
 	}
 
-	public int getTotalfeesAmount()
-	{
+	public int getTotalfeesAmount() {
 		return totalfeesAmount;
 	}
 
-	public void setTotalfeesAmount(int totalfeesAmount) 
-	{
+	public void setTotalfeesAmount(int totalfeesAmount) {
 		this.totalfeesAmount = totalfeesAmount;
 	}
 
-	public String getFeeStatus() 
-	{
+	public String getFeeStatus() {
 		return feeStatus;
 	}
 
-	public void setFeeStatus(String feeStatus)
-	{
+	public void setFeeStatus(String feeStatus) {
 		this.feeStatus = feeStatus;
 	}
 
-	public Calendar getPaymentDate()
-	{
+	public Calendar getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(Calendar paymentDate) 
-	{
+	public void setPaymentDate(Calendar paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 
-	public int getInstallmentNo() 
-	{
+	public Integer getInstallmentNo() {
 		return InstallmentNo;
 	}
 
-	public void setInstallmentNo(int installmentNo) 
-	{
+	public void setInstallmentNo(Integer installmentNo) {
 		InstallmentNo = installmentNo;
 	}
 
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "FeePayment [paymentId=" + paymentId + ", student=" + student + ", paymentMode=" + paymentMode
 				+ ", feesAmount=" + feesAmount + ", latefeesAmount=" + latefeesAmount + ", totalfeesAmount="
 				+ totalfeesAmount + ", feeStatus=" + feeStatus + ", paymentDate=" + paymentDate + ", InstallmentNo="
 				+ InstallmentNo + "]";
 	}
+
+	
 	
 }

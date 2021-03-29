@@ -1,8 +1,6 @@
 package com.school.app.model;
 
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +11,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.stereotype.Component;
 
-
-@Component
 @Entity
 public class Division 
 {
@@ -28,11 +23,14 @@ public class Division
 	@ManyToMany(mappedBy = "division")
 	private List<Standard> standard;
 	
-	@OneToMany(mappedBy = "division",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "division")
 	private List<Result> result;
 	
 	@OneToMany(mappedBy = "division")
 	private List<ResultFile> resultFile;
+	
+	@OneToMany(mappedBy = "division")
+	private List<Meeting> meeting;
 	
 	@NotNull
 	@Size(max = 10)
@@ -45,62 +43,83 @@ public class Division
 	{
 		super();
 	}
-	
-	//Parameterized Constructor
-	public Division(int divisionId, List<Standard> standard, List<Result> result,
-			@NotNull @Size(max = 10) String divisionName, List<ResultFile> resultFile) {
+
+
+	public Division(int divisionId, List<Standard> standard, List<Result> result, List<ResultFile> resultFile,
+			List<Meeting> meeting, @NotNull @Size(max = 10) String divisionName) {
 		super();
 		this.divisionId = divisionId;
 		this.standard = standard;
 		this.result = result;
-		this.divisionName = divisionName;
 		this.resultFile = resultFile;
+		this.meeting = meeting;
+		this.divisionName = divisionName;
 	}
 
-	//getters and setters
+
 	public int getDivisionId() {
 		return divisionId;
 	}
+
 
 	public void setDivisionId(int divisionId) {
 		this.divisionId = divisionId;
 	}
 
-	public String getDivisionName() {
-		return divisionName;
-	}
 
-	public void setDivisionName(String divisionName) {
-		this.divisionName = divisionName;
-	}
-	
-	public List<Standard> getStandard() {
+	/*public List<Standard> getStandard() {
 		return standard;
 	}
+
 
 	public void setStandard(List<Standard> standard) {
 		this.standard = standard;
 	}
 
-	/*public List<Result> getResult() {
+
+	public List<Result> getResult() {
 		return result;
 	}
+
 
 	public void setResult(List<Result> result) {
 		this.result = result;
 	}
 
-	/*public List<ResultFile> getResultFile() {
+
+	public List<ResultFile> getResultFile() {
 		return resultFile;
 	}
 
+
 	public void setResultFile(List<ResultFile> resultFile) {
 		this.resultFile = resultFile;
+	}
+
+
+	public Meeting getMeeting() {
+		return meeting;
+	}
+
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}*/
+
+
+	public String getDivisionName() {
+		return divisionName;
+	}
+
+
+	public void setDivisionName(String divisionName) {
+		this.divisionName = divisionName;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Division [divisionId=" + divisionId + ", standard=" + standard + ", result=" + result
-				+ ", divisionName=" + divisionName + ", resultFile=" + resultFile + "]";
-	}
+		return "Division [divisionId=" + divisionId + ", standard=" + standard + ", result=" + result + ", resultFile="
+				+ resultFile + ", meeting=" + meeting + ", divisionName=" + divisionName + "]";
+	}	
 }

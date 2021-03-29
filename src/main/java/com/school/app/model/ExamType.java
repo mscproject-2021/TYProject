@@ -20,8 +20,11 @@ public class ExamType {
 	@Column(updatable = false,length = 1 , columnDefinition = "TinyInt")
 	private int examtypeId;
 	
-	@OneToMany(mappedBy = "examtype")
+	@OneToMany(mappedBy = "examType")
 	private List<Result> result;
+	
+	@OneToMany(mappedBy = "examType")
+	private List<ResultFile> resultFile;
 	
 	@NotNull
 	@Column(length = 15,nullable = false)
@@ -38,62 +41,60 @@ public class ExamType {
 		super();
 	}
 
-	//Parameterized Constructor
-	public ExamType(int examtypeId, List<Result> result, @NotNull @Size(max = 15) String examtypeName,
-			@Size(max = 100) String examtypeDescription)
-	{
+	public ExamType(int examtypeId, List<Result> result, List<ResultFile> resultFile,
+			@NotNull @Size(max = 15) String examtypeName, @Size(max = 100) String examtypeDescription) {
 		super();
 		this.examtypeId = examtypeId;
 		this.result = result;
+		this.resultFile = resultFile;
 		this.examtypeName = examtypeName;
 		this.examtypeDescription = examtypeDescription;
 	}
 
-	//getters and setters
-	public int getExamtypeId()
-	{
+	public int getExamtypeId() {
 		return examtypeId;
 	}
 
-	public void setExamtypeId(int examtypeId) 
-	{
+	public void setExamtypeId(int examtypeId) {
 		this.examtypeId = examtypeId;
 	}
 
-	/*public List<Result> getResult() 
-	{
+	/*public List<Result> getResult() {
 		return result;
 	}
 
-	public void setResult(List<Result> result)
-	{
+	public void setResult(List<Result> result) {
 		this.result = result;
+	}
+
+	public List<ResultFile> getResultFile() {
+		return resultFile;
+	}
+
+	public void setResultFile(List<ResultFile> resultFile) {
+		this.resultFile = resultFile;
 	}*/
 
-	public String getExamtypeName() 
-	{
+	public String getExamtypeName() {
 		return examtypeName;
 	}
 
-	public void setExamtypeName(String examtypeName) 
-	{
+	public void setExamtypeName(String examtypeName) {
 		this.examtypeName = examtypeName;
 	}
 
-	public String getExamtypeDescription()
-	{
+	public String getExamtypeDescription() {
 		return examtypeDescription;
 	}
 
-	public void setExamtypeDescription(String examtypeDescription)
-	{
+	public void setExamtypeDescription(String examtypeDescription) {
 		this.examtypeDescription = examtypeDescription;
 	}
 
 	@Override
-	public String toString() 
-	{
-		return "ExamType [examtypeId=" + examtypeId + ", result=" + result + ", examtypeName=" + examtypeName
-				+ ", examtypeDescription=" + examtypeDescription + "]";
+	public String toString() {
+		return "ExamType [examtypeId=" + examtypeId + ", result=" + result + ", resultFile=" + resultFile
+				+ ", examtypeName=" + examtypeName + ", examtypeDescription=" + examtypeDescription + "]";
 	}
+
 }

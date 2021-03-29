@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -20,7 +21,6 @@ import org.springframework.data.annotation.CreatedDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
-//@Component
 @Entity
 public class Student 
 {
@@ -29,13 +29,13 @@ public class Student
 	@Column(length = 7,updatable = false)
 	private int grNo;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Standard standard;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "student",cascade = CascadeType.ALL)
 	private Parent parent;
 	
-	@ManyToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Activity> activity;
 
 	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
@@ -208,7 +208,7 @@ public class Student
 		this.grNo = grNo;
 	}
 
-	/*public Standard getStandard() {
+	public Standard getStandard() {
 		return standard;
 	}
 
@@ -216,15 +216,7 @@ public class Student
 		this.standard = standard;
 	}
 
-	public Parent getParent() {
-		return parent;
-	}
-
-	public void setParent(Parent parent) {
-		this.parent = parent;
-	}*/
-
-	/*public List<Activity> getActivity() {
+	public List<Activity> getActivity() {
 		return activity;
 	}
 
@@ -232,7 +224,15 @@ public class Student
 		this.activity = activity;
 	}
 
-	public List<Attendance> getAttendance() {
+	/*public Parent getParent() {
+	return parent;
+	}
+	
+	public void setParent(Parent parent) {
+		this.parent = parent;
+	}*/
+	
+	/*public List<Attendance> getAttendance() {
 		return attendance;
 	}
 

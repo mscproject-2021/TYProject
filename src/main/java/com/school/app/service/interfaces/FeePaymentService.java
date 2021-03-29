@@ -9,6 +9,7 @@ public interface FeePaymentService
 {
 	public  ResponseEntity<Object> saveFeePayment(FeePayment feePayment);
 	
+	// some filters
 	public ResponseEntity<List<FeePayment>> getAllFeePayments();
 	
 	public  ResponseEntity<Object> getFeePaymentById(int id);

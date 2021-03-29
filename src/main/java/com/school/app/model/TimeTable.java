@@ -21,11 +21,14 @@ public class TimeTable {
 	@ManyToOne
 	private Standard standard;
 	
-	@ManyToOne
+	/*@ManyToOne
 	private Teacher teacher;
 	
 	@ManyToOne
-	private UserType usertype;
+	private UserType usertype;*/
+	
+	@ManyToOne
+	private Division division;
 	
 	@NotNull
 	@Size(max = 255)
@@ -39,17 +42,15 @@ public class TimeTable {
 	}
 
 	//Parameterized Constructor
-	public TimeTable(int timetableId, Standard standard, Teacher teacher, UserType usertype,
+	public TimeTable(int timetableId, Standard standard, Division division,
 			@NotNull @Size(max = 255) String timetableFile) {
 		super();
 		this.timetableId = timetableId;
 		this.standard = standard;
-		this.teacher = teacher;
-		this.usertype = usertype;
+		this.division = division;
 		this.timetableFile = timetableFile;
 	}
 
-	//getters and setters
 	public int getTimetableId() {
 		return timetableId;
 	}
@@ -66,20 +67,12 @@ public class TimeTable {
 		this.standard = standard;
 	}
 
-	public Teacher getTeacher() {
-		return teacher;
+	public Division getDivision() {
+		return division;
 	}
 
-	public void setTeacher(Teacher teacher) {
-		this.teacher = teacher;
-	}
-
-	public UserType getUsertype() {
-		return usertype;
-	}
-
-	public void setUsertype(UserType usertype) {
-		this.usertype = usertype;
+	public void setDivision(Division division) {
+		this.division = division;
 	}
 
 	public String getTimetableFile() {
@@ -92,7 +85,10 @@ public class TimeTable {
 
 	@Override
 	public String toString() {
-		return "TimeTable [timetableId=" + timetableId + ", standard=" + standard + ", teacher=" + teacher
-				+ ", usertype=" + usertype + ", timetableFile=" + timetableFile + "]";
-	}	
+		return "TimeTable [timetableId=" + timetableId + ", standard=" + standard + ", division=" + division
+				+ ", timetableFile=" + timetableFile + "]";
+	}
+
+	//getters and setters
+	
 }

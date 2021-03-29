@@ -38,7 +38,7 @@ public class AttendanceServiceImpl implements AttendanceService
 	}
 
 	@Override
-	public ResponseEntity<Object> updateAdmin(Attendance attendance, int id) 
+	public ResponseEntity<Object> updateAttendance(Attendance attendance, int id) 
 	{
 		Attendance attendanceById =  attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("attendance not found for not found for id" + id));
 		try

@@ -25,9 +25,7 @@ public class UserType {
 	@OneToMany(mappedBy = "usertype")
 	private List<Meeting> meeting;
 	
-	@OneToMany(mappedBy = "usertype")
-	private List<TimeTable> timetable;
-	
+
 	@Column(length = 7 ,nullable = false)
 	@Size(max = 7)
 	@NotNull
@@ -40,13 +38,11 @@ public class UserType {
 	}
 
 	//Parameterized Constructor
-	public UserType(int usertypeId, List<Login> login, List<Meeting> meeting, List<TimeTable> timetable,
-			@Size(max = 7) @NotNull String userType) {
+	public UserType(int usertypeId, List<Login> login, List<Meeting> meeting, @Size(max = 7) @NotNull String userType) {
 		super();
 		this.usertypeId = usertypeId;
 		this.login = login;
 		this.meeting = meeting;
-		this.timetable = timetable;
 		this.userType = userType;
 	}
 
@@ -54,6 +50,8 @@ public class UserType {
 	public int getUsertypeId() {
 		return usertypeId;
 	}
+
+	
 
 	public void setUsertypeId(int usertypeId) {
 		this.usertypeId = usertypeId;
@@ -81,21 +79,11 @@ public class UserType {
 
 	public void setMeeting(List<Meeting> meeting) {
 		this.meeting = meeting;
-	}
-
-	public List<TimeTable> getTimetable() {
-		return timetable;
-	}
-
-	public void setTimetable(List<TimeTable> timetable) {
-		this.timetable = timetable;
 	}*/
-
 
 	@Override
 	public String toString() {
-		return "UserType [usertypeId=" + usertypeId + ", login=" + login + ", meeting=" + meeting + ", timetable="
-				+ timetable + ", userType=" + userType + "]";
+		return "UserType [usertypeId=" + usertypeId + ", login=" + login + ", meeting=" + meeting  + ", userType=" + userType + "]";
 	}
 
 
