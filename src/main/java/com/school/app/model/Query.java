@@ -9,15 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-
 
 @Entity
 public class Query {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-	@GenericGenerator(name="native",strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 4)
 	private int queryId;
 	

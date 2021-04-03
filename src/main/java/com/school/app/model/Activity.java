@@ -10,14 +10,11 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 public class Activity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-	@GenericGenerator(name="native",strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 5)
 	private int activityId;
 	

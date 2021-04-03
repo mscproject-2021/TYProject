@@ -32,7 +32,7 @@ public class CoreServiceImpl implements CoreService
 		List<Division> division_list = (List<Division>)divisionrepository.findAll();
 		if(division_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("division list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(division_list);
 	}
@@ -43,7 +43,7 @@ public class CoreServiceImpl implements CoreService
 		List<Standard> standard_list = (List<Standard>)Standardrepository.findAll();
 		if(standard_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("standard list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(standard_list);
 	}
@@ -54,7 +54,7 @@ public class CoreServiceImpl implements CoreService
 		List<Subject> subject_list = (List<Subject>)subjectrepository.findAll();
 		if(subject_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("subject list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(subject_list);
 	}

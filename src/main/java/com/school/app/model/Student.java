@@ -17,8 +17,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,8 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Student 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-	@GenericGenerator(name="native",strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(length = 7,updatable = false)
 	private int grNo;
 	

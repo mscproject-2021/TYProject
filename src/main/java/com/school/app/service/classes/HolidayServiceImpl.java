@@ -29,7 +29,7 @@ public class HolidayServiceImpl implements HolidayService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class HolidayServiceImpl implements HolidayService
 		List<Holiday> holiday_list = (List<Holiday>)holidayrepository.findAll();
 		if(holiday_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("holiday list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(holiday_list);
 	}
@@ -47,22 +47,22 @@ public class HolidayServiceImpl implements HolidayService
 	@Override
 	public ResponseEntity<Object> getHolidayById(int id)
 	{
-		Holiday holiday =  holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Holiday holiday =  holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("holiday not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(holiday);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteHolidayById(int id) 
 	{	
-		holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("holiday not found for id" + id));
 		holidayrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Holiday successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
 	}
 
 	@Override
 	public ResponseEntity<Object> updateHoliday(Holiday holiday, int id)
 	{
-		Holiday holidayById =  holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Holiday holidayById =  holidayrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Holiday not found for id" + id));
 		try
 		{
 			holidayById.setHolidayDescription(holiday.getHolidayDescription());
@@ -76,7 +76,7 @@ public class HolidayServiceImpl implements HolidayService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 }

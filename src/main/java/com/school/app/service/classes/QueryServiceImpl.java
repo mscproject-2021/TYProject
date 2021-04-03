@@ -33,14 +33,14 @@ public class QueryServiceImpl implements QueryService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 	
 	@Override
 	public ResponseEntity<Object> getQueryById(int id) 
 	{
-		Query query =  queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Query query =  queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("query not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(query);
 	}
 
@@ -50,7 +50,7 @@ public class QueryServiceImpl implements QueryService
 		List<Query> query_list = (List<Query>)queryrepository.findAll();
 		if(query_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("query list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(query_list);
 	}
@@ -58,7 +58,7 @@ public class QueryServiceImpl implements QueryService
 	@Override
 	public ResponseEntity<Object> updateQuery(Query query, int id)
 	{
-		Query queryById =  queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Query queryById =  queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("query not found for id" + id));
 		try 
 		{
 				queryById.setResponseMessage(query.getResponseMessage());
@@ -68,16 +68,16 @@ public class QueryServiceImpl implements QueryService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteQueryById(int id)
 	{
-		queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		queryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("query not found for id" + id));
 		queryrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Query successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
 	}
 
 	
@@ -92,14 +92,14 @@ public class QueryServiceImpl implements QueryService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> getInquiryById(int id) 
 	{
-		Inquiry inquiry =  inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Inquiry inquiry =  inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("inquiry not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(inquiry);
 	}
 
@@ -109,7 +109,7 @@ public class QueryServiceImpl implements QueryService
 		List<Inquiry> inquiry_list = (List<Inquiry>)inquiryrepository.findAll();
 		if(inquiry_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("inquiry list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(inquiry_list);
 	}
@@ -117,7 +117,7 @@ public class QueryServiceImpl implements QueryService
 	@Override
 	public ResponseEntity<Object> updateInquiry(Inquiry inquiry,int id) 
 	{
-		Inquiry inquiryById =  inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Inquiry inquiryById =  inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("inquiry not found for id" + id));
 		try 
 		{
 				inquiryById.setInquiryResponse(inquiry.getInquiryResponse());
@@ -127,16 +127,16 @@ public class QueryServiceImpl implements QueryService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteInquiryById(int id) 
 	{
-		inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		inquiryrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("inquiry not found for id" + id));
 		inquiryrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Inquiry successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
 	}
 
 }

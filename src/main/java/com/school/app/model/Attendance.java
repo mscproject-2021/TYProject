@@ -10,9 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -20,8 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Attendance {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-	@GenericGenerator(name="native",strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 5)
 	private int attendanceId;
 	

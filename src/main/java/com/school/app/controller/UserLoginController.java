@@ -20,7 +20,7 @@ import com.school.app.service.interfaces.UserService;
 @RestController
 @RequestMapping("/sms")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UserController 
+public class UserLoginController 
 {
 	
 	@Autowired

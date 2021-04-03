@@ -86,7 +86,7 @@ public class ScheduleController
 	}
 	
 	@PutMapping("/meeting/{id}")
-	public ResponseEntity<Object> updateMeeting(@RequestBody Meeting meeting,@PathVariable int id)
+	public ResponseEntity<Object> updayeMeeting(@RequestBody Meeting meeting,@PathVariable int id)
 	{
 		return meetingservice.updateMeeting(meeting, id);
 	}

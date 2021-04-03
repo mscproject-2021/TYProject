@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,8 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Event {
 
 		@Id
-		@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-		@GenericGenerator(name="native",strategy = "native")
+		@GeneratedValue(strategy = GenerationType.AUTO)
 		@Column(updatable = false,length = 4)
 		private int eventId;
 		

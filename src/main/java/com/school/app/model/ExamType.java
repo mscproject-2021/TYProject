@@ -11,15 +11,12 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.GenericGenerator;
-
 
 @Entity
 public class ExamType {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
-	@GenericGenerator(name="native",strategy = "native")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(updatable = false,length = 1 , columnDefinition = "TinyInt")
 	private int examtypeId;
 	

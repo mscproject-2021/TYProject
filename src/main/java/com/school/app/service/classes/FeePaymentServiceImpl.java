@@ -28,14 +28,14 @@ public class FeePaymentServiceImpl implements FeePaymentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> getFeePaymentById(int id) 
 	{
-		FeePayment feePayment =  feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		FeePayment feePayment =  feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("feepayment not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(feePayment);
 		
 	}
@@ -43,7 +43,7 @@ public class FeePaymentServiceImpl implements FeePaymentService
 	@Override
 	public ResponseEntity<Object> updateFeePayment(FeePayment feePayment,int id) 
 	{
-		FeePayment feePaymentById =  feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		FeePayment feePaymentById =  feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("query not found for id" + id));
 		try 
 		{
 			feePaymentById.setFeesAmount(feePayment.getFeesAmount());
@@ -60,16 +60,16 @@ public class FeePaymentServiceImpl implements FeePaymentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteFeePaymentById(int id) 
 	{
-		feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		feepaymentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("feepayment not found for id" + id));
 		feepaymentrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Fee Payment successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class FeePaymentServiceImpl implements FeePaymentService
 		List<FeePayment> feePayment_list = (List<FeePayment>)feepaymentrepository.findAll();
 		if(feePayment_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("feepayment list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(feePayment_list);
 	}

@@ -21,17 +21,31 @@ public class AdminServiceImpl implements AdminService
 	@Autowired
 	private SchoolDetailRepository schooldetailrepository;
 	
+	/*@Override
+	public ResponseEntity<Object> saveAdmin(Admin admin) 
+	{
+		try
+		{
+			Admin add_admin = adminrepository.save(admin);
+			return ResponseEntity.status(HttpStatus.CREATED).body(add_admin);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+		}
+	}*/
 
 	@Override
 	public ResponseEntity<Object> getAdminById(int id) 
 	{
-		Admin admin =  adminrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Admin admin =  adminrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("admin not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(admin);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateAdmin(Admin admin, int id) {
-		Admin adminById =  adminrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Admin adminById =  adminrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("admin not found for id" + id));
 		try 
 		{
 			adminById.setAddress1(admin.getAddress1());
@@ -47,7 +61,7 @@ public class AdminServiceImpl implements AdminService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}	
 	}
 
@@ -57,7 +71,7 @@ public class AdminServiceImpl implements AdminService
 		List<SchoolDetail> schooldetail_list = (List<SchoolDetail>)schooldetailrepository.findAll();
 		if(schooldetail_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("schooldetail list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(schooldetail_list);
 	}
@@ -65,7 +79,7 @@ public class AdminServiceImpl implements AdminService
 	@Override
 	public ResponseEntity<Object> updateSchoolDetail(SchoolDetail schooldetail, int id) 
 	{
-		SchoolDetail schooldetailById =  schooldetailrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		SchoolDetail schooldetailById =  schooldetailrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("schooldetail not found for id" + id));
 		try 
 		{
 			schooldetailById.setEmailId(schooldetail.getEmailId());
@@ -80,7 +94,7 @@ public class AdminServiceImpl implements AdminService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}	
 	}
 }

@@ -71,7 +71,7 @@ public class QueryController
 	}
 	
 	@PutMapping("/query/{id}")
-	public ResponseEntity<Object> updateQuery(@RequestBody Query query,@PathVariable int id)
+	public ResponseEntity<Object> updateInquiry(@RequestBody Query query,@PathVariable int id)
 	{
 		return queryservice.updateQuery(query, id);
 	}

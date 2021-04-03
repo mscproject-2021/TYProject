@@ -28,7 +28,7 @@ public class TimetableServiceImpl implements TimetableService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
@@ -38,7 +38,7 @@ public class TimetableServiceImpl implements TimetableService
 		List<TimeTable> timetable_list = (List<TimeTable>)timetablerepository.findAll();
 		if(timetable_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("timetable list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(timetable_list);
 	}
@@ -46,7 +46,7 @@ public class TimetableServiceImpl implements TimetableService
 	@Override
 	public ResponseEntity<Object> getTimeTableById(int id) 
 	{
-		TimeTable timetable =  timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		TimeTable timetable =  timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("timetable not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(timetable);
 		
 	}
@@ -54,16 +54,16 @@ public class TimetableServiceImpl implements TimetableService
 	@Override
 	public ResponseEntity<Object> deleteTimeTableById(int id)
 	{
-		timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("timetable not found for id" + id));
 		timetablerepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("TimeTable successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
 
 	}
 	
 	@Override
 	public ResponseEntity<Object> updateTimeTable(TimeTable timeTable,int id) 
 	{
-		TimeTable timetableById =  timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		TimeTable timetableById =  timetablerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Timetable not found for id" + id));
 		try 
 		{
 			timetableById.setTimetableFile(timeTable.getTimetableFile());
@@ -74,7 +74,7 @@ public class TimetableServiceImpl implements TimetableService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 

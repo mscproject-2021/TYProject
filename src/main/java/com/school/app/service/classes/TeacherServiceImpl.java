@@ -29,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 		
 	}
@@ -40,7 +40,7 @@ public class TeacherServiceImpl implements TeacherService
 		List<Teacher> teacher_list = (List<Teacher>)teacherrepository.findAll();
 		if(teacher_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Sorry! Not Found.");
+			throw new ResourceNotFoundException("Teacher user list not found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(teacher_list);
 	}
@@ -48,14 +48,14 @@ public class TeacherServiceImpl implements TeacherService
 	@Override
 	public ResponseEntity<Object> getTeacherById(int id) 
 	{
-		Teacher teacher =  teacherrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Teacher teacher =  teacherrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(teacher);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateTeacher(Teacher teacher,int id) 
 	{
-		Teacher teacherById =  teacherrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		Teacher teacherById =  teacherrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
 		try
 		{
 			teacherById.setAddress1(teacher.getAddress1());
@@ -73,16 +73,16 @@ public class TeacherServiceImpl implements TeacherService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteTeacherById(int id)
 	{
-		teacherrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Sorry! Not found for :" + id));
+		teacherrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found for id" + id));
 		teacherrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Teacher successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("teacher record successfully deleted");
 	}
 	
 }
