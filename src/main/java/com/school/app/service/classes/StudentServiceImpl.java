@@ -29,7 +29,7 @@ public class StudentServiceImpl  implements StudentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class StudentServiceImpl  implements StudentService
 		List<Student> student_list = (List<Student>)studentrepository.findAll();
 		if(student_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("student user list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found. ");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(student_list);
 	}
@@ -47,14 +47,14 @@ public class StudentServiceImpl  implements StudentService
 	@Override
 	public ResponseEntity<Object> getStudentById(int id) 
 	{
-		Student student =  studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		Student student =  studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(student);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateStudent(Student student,int id) 
 	{
-		Student studentById =  studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		Student studentById =  studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			studentById.setDivision(student.getDivision());
@@ -85,24 +85,15 @@ public class StudentServiceImpl  implements StudentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteStudentById(int id) 
 	{
-		try 
-		{
-			studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
-			studentrepository.deleteById(id);
-			return ResponseEntity.status(HttpStatus.OK).body("student record successfully deleted");
-		} 
-		catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
-		}
-		
+		studentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		studentrepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).body("student successfully deleted");
 	}
 }

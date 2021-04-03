@@ -34,7 +34,7 @@ public class StudyMaterialServiceImpl implements StudyMaterialService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -44,7 +44,7 @@ public class StudyMaterialServiceImpl implements StudyMaterialService
 		List<StudyMaterial> Studymaterial_list = (List<StudyMaterial>)studyMaterialRepository.findAll();
 		if(Studymaterial_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Studymateriallist user list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(Studymaterial_list);
 	}
@@ -52,14 +52,14 @@ public class StudyMaterialServiceImpl implements StudyMaterialService
 	@Override
 	public ResponseEntity<Object> getStudyMaterialById(int id) 
 	{
-		StudyMaterial Studymaterial =  studyMaterialRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Studymaterial not found for id" + id));
+		StudyMaterial Studymaterial =  studyMaterialRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(Studymaterial);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateStudyMaterial(StudyMaterial studyMaterial,int id) 
 	{
-		StudyMaterial StudymaterialById =  studyMaterialRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Studymaterial not found for id" + id));
+		StudyMaterial StudymaterialById =  studyMaterialRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			StudymaterialById.setDescription(studyMaterial.getDescription());
@@ -71,16 +71,16 @@ public class StudyMaterialServiceImpl implements StudyMaterialService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteStudyMaterialById(int id) 
 	{
-		studyMaterialRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Studymaterial not found for id" + id));
+		studyMaterialRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Sorry! Not found for :" + id));
 		studyMaterialRepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Studymaterial record successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Studymaterial successfully deleted");
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class StudyMaterialServiceImpl implements StudyMaterialService
 		List<StudyMaterialType> Studymaterialtype_list = (List<StudyMaterialType>)studymaterialtyperepository.findAll();
 		if(Studymaterialtype_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Studymaterialtype user list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(Studymaterialtype_list);
 	}

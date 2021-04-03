@@ -6,41 +6,47 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 
 @Entity
 //use for making unique column named user name
-@Table(uniqueConstraints= @UniqueConstraint(columnNames = { "username" }))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userName"}))
 public class User 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+	@GenericGenerator(name="native",strategy = "native")
 	@Column(length = 10,updatable = false)
 	private int userId;
 	
-	
 	@ManyToOne
+	private UserType userType;
+	
+	@OneToOne
 	private Parent parent;
 	
-	@ManyToOne
+	@OneToOne
 	private Admin admin;
 	
-	@ManyToOne
+	@OneToOne
 	private Teacher teacher;
 	
 	@NotNull
 	@Size(max = 20)
 	@Column(length = 20,unique = true,nullable = false)
-	private String username;
+	private String userName;
 	
 	@NotNull
-	@Size(min = 8,max = 15)
-	@Column(length = 15,nullable = false)
+	//@Size(min = 8,max = 30)
+	@Column(length = 100,nullable = false)
 	private String password;
 	
 	@NotNull
@@ -64,20 +70,24 @@ public class User
 		super();
 	}
 
-	public User(int userId, Parent parent, Admin admin, Teacher teacher, @NotNull @Size(max = 20) String username,
-			@NotNull @Size(min = 8, max = 15) String password, @NotNull @Size(max = 50) String name,
-			@NotNull @Size(max = 10) String contactNo1, @NotNull @Size(max = 40) String emailId) {
+	public User(int userId, UserType userType, Parent parent, Admin admin, Teacher teacher,
+			@NotNull @Size(max = 20) String userName, @NotNull  String password,
+			@NotNull @Size(max = 50) String name, @NotNull @Size(max = 10) String contactNo1,
+			@NotNull @Size(max = 40) String emailId) {
 		super();
 		this.userId = userId;
+		this.userType = userType;
 		this.parent = parent;
 		this.admin = admin;
 		this.teacher = teacher;
-		this.username = username;
+		this.userName = userName;
 		this.password = password;
 		this.name = name;
 		this.contactNo1 = contactNo1;
 		this.emailId = emailId;
 	}
+
+
 
 	public int getUserId() {
 		return userId;
@@ -87,6 +97,14 @@ public class User
 		this.userId = userId;
 	}
 
+	public UserType getUserType() {
+		return userType;
+	}
+
+	public void setUserType(UserType userType) {
+		this.userType = userType;
+	}
+	
 	public Parent getParent() {
 		return parent;
 	}
@@ -111,12 +129,14 @@ public class User
 		this.teacher = teacher;
 	}
 
-	public String getUsername() {
-		return username;
+	
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -153,10 +173,9 @@ public class User
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", parent=" + parent + ", admin=" + admin + ", teacher=" + teacher
-				+ ", username=" + username + ", password=" + password + ", name=" + name + ", contactNo1=" + contactNo1
-				+ ", emailId=" + emailId + "]";
+		return "User [userId=" + userId + ", userType=" + userType + ", parent=" + parent + ", admin=" + admin
+				+ ", teacher=" + teacher + ", userName=" + userName + ", password=" + password + ", name=" + name
+				+ ", contactNo1=" + contactNo1 + ", emailId=" + emailId + "]";
 	}
-
 	
 }

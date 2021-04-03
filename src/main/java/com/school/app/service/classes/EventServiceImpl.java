@@ -29,7 +29,7 @@ public class EventServiceImpl implements EventService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class EventServiceImpl implements EventService
 		List<Event> event_list = (List<Event>)eventrepository.findAll();
 		if(event_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("event list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(event_list);
 	}
@@ -47,22 +47,22 @@ public class EventServiceImpl implements EventService
 	@Override
 	public ResponseEntity<Object> getEventyById(int id) 
 	{
-		Event event =  eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("event not found for id" + id));
+		Event event =  eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(event);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteEventyById(int id) 
 	{
-		eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("event not found for id" + id));
+		eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		eventrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Event successfully deleted");
 	}
 
 	@Override
 	public ResponseEntity<Object> updateEvent(Event event, int id) 
 	{
-		Event eventById =  eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Event not found for id" + id));
+		Event eventById =  eventrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			eventById.setEventDescription(event.getEventDescription());
@@ -78,7 +78,7 @@ public class EventServiceImpl implements EventService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 

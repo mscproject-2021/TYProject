@@ -10,22 +10,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userName"}))
 public class Teacher 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+	@GenericGenerator(name="native",strategy = "native")
 	@Column(length = 2,updatable = false)
 	private int teacherId;
 	
@@ -35,7 +36,7 @@ public class Teacher
 	@ManyToMany
 	private List<Subject> subject;
 	
-	@OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "teacher",cascade = CascadeType.ALL)
 	private User user;
 	
 	@NotNull

@@ -29,7 +29,7 @@ public class ParentServiceImpl implements ParentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class ParentServiceImpl implements ParentService
 		List<Parent> parent_list = (List<Parent>)parentrepository.findAll();
 		if(parent_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("Parent user list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(parent_list);
 	}
@@ -47,14 +47,14 @@ public class ParentServiceImpl implements ParentService
 	@Override
 	public ResponseEntity<Object> getParentById(int id) 
 	{ 
-		Parent parent =  parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		Parent parent =  parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(parent);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateParent(Parent parent,int id) 
 	{
-		Parent parentById =  parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		Parent parentById =  parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			parentById.setContactNo2(parent.getContactNo2());
@@ -67,15 +67,15 @@ public class ParentServiceImpl implements ParentService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteParentById(int id)
 	{
-		parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		parentrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		parentrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Parent record Successfully Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Parent Successfully Deleted");
 	}
 }
