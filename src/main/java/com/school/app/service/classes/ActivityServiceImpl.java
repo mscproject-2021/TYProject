@@ -28,7 +28,7 @@ public class ActivityServiceImpl implements ActivityService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -38,7 +38,7 @@ public class ActivityServiceImpl implements ActivityService
 		List<Activity> activity_list = (List<Activity>)activityrepository.findAll();
 		if(activity_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("activity list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(activity_list);
 	}
@@ -46,16 +46,16 @@ public class ActivityServiceImpl implements ActivityService
 	@Override
 	public ResponseEntity<Object> getActivityById(int id)
 	{
-		Activity activity =  activityrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("activity not found for id" + id));
+		Activity activity =  activityrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for : " + id));
 		return ResponseEntity.status(HttpStatus.OK).body(activity);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteActivityById(int id) 
 	{
-		activityrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("activity not found for id" + id));
+		activityrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		activityrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Activity Successfully deleted.");
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class ActivityServiceImpl implements ActivityService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 }

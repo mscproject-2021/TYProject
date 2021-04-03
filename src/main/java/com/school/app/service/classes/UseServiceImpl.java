@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.school.app.exception.ResourceNotFoundException;
 import com.school.app.model.User;
@@ -22,16 +23,37 @@ public class UseServiceImpl implements UserService
 	@Autowired
 	private UserTypeRepository usertyperepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder; 
+	
+	@Override
+	public ResponseEntity<Object> saveUser(User user)
+	{
+		try
+		{
+			String encodePasswordString = passwordEncoder.encode(user.getPassword());
+			user.setPassword(encodePasswordString);
+			User add_user = userrepository.save(user);
+			return ResponseEntity.status(HttpStatus.CREATED).body(add_user);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+		}
+		
+	}
+	
 	@Override
 	public ResponseEntity<Object> updateUser(User user, int id) {
-		User userById =  userrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("admin not found for id" + id));
+		User userById =  userrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try 
 		{
 			userById.setContactNo1(user.getContactNo1());
 			userById.setEmailId(user.getEmailId());
 			userById.setName(user.getName());
 			userById.setPassword(user.getPassword());
-			userById.setUsername(user.getUsername());
+			userById.setUserName(user.getUserName());
 			
 			userrepository.save(userById);
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(userById);
@@ -39,25 +61,8 @@ public class UseServiceImpl implements UserService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}	
-	}
-
-
-	@Override
-	public ResponseEntity<Object> saveUser(User user)
-	{
-		try
-		{
-			User add_user = userrepository.save(user);
-			return ResponseEntity.status(HttpStatus.CREATED).body(add_user);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
-		}
-		
 	}
 
 	@Override
@@ -66,7 +71,7 @@ public class UseServiceImpl implements UserService
 		List<User> user_list = (List<User>)userrepository.findAll();
 		if(user_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("user user list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(user_list);
 	}
@@ -74,16 +79,16 @@ public class UseServiceImpl implements UserService
 	@Override
 	public ResponseEntity<Object> getUserById(int id) 
 	{
-		User user =  userrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		User user =  userrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteUserById(int id)
 	{
-		userrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found for id" + id));
+		userrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Sorry! Not found for :" + id));
 		userrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("user record successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("User successfully deleted");
 	}
 	
 	@Override
@@ -92,7 +97,7 @@ public class UseServiceImpl implements UserService
 		List<UserType> usertype_list = (List<UserType>)usertyperepository.findAll();
 		if(usertype_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("usertype list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(usertype_list);
 	}

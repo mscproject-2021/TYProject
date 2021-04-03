@@ -8,25 +8,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"username"}))
 @Entity
 public class Admin 
 {	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+	@GenericGenerator(name="native",strategy = "native")
 	@Column(length = 1,updatable = false , columnDefinition = "TinyInt")
 	private int adminId;
 	
-	@OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "admin",cascade = CascadeType.ALL)
 	private User user;
 	
 	@NotNull

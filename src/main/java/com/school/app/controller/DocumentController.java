@@ -95,7 +95,7 @@ public class DocumentController
 	}
 	
 	@PutMapping("/event/{id}")
-	public ResponseEntity<Object> updateHoliday(@RequestBody Event event,@PathVariable int id)
+	public ResponseEntity<Object> updateEvent(@RequestBody Event event,@PathVariable int id)
 	{
 		return eventservice.updateEvent(event, id);
 	}

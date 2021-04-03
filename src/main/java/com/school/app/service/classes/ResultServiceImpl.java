@@ -39,7 +39,7 @@ public class ResultServiceImpl implements ResultService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class ResultServiceImpl implements ResultService
 		List<Result> result_list = (List<Result>)resultrepository.findAll();
 		if(result_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("result list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(result_list);
 	}
@@ -56,14 +56,14 @@ public class ResultServiceImpl implements ResultService
 	@Override
 	public ResponseEntity<Object> getResultById(int id)
 	{
-		Result result =  resultrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("result not found for id" + id));
+		Result result =  resultrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateResult(Result result, int id)
 	{
-		Result resultById =  resultrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("result not found for id" + id));
+		Result resultById =  resultrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			resultById.setDrawing(result.getDrawing());
@@ -89,16 +89,16 @@ public class ResultServiceImpl implements ResultService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> delteResultById(int id)
 	{
-		resultrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("result not found for id" + id));
+		resultrepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Sorry! Not found for :" + id));
 		resultrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("result record successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("result successfully deleted");
 	}
 
 	
@@ -113,14 +113,14 @@ public class ResultServiceImpl implements ResultService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> updateResultFile(ResultFile resultfile, int id)
 	{
-		ResultFile resultFileById =  resultfilerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found for id" + id));
+		ResultFile resultFileById =  resultfilerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			resultFileById.setResultFile(resultfile.getResultFile());
@@ -132,7 +132,7 @@ public class ResultServiceImpl implements ResultService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -142,22 +142,22 @@ public class ResultServiceImpl implements ResultService
 		List<ResultFile> resultfile_list = (List<ResultFile>)resultfilerepository.findAll();
 		if(resultfile_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("ResultFile list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(resultfile_list);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteResultFileById(int id) {
-		resultfilerepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("resultfile not found for id" + id));
+		resultfilerepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Sorry! Not found for :" + id));
 		resultfilerepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("resultfile record successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Resultfile successfully deleted");
 	}
 	
 	@Override
 	public ResponseEntity<Object> getResultFileById(int id) 
 	{
-		ResultFile resultfile =  resultfilerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("resultfile not found for id" + id));
+		ResultFile resultfile =  resultfilerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(resultfile);
 	}
 
@@ -168,7 +168,7 @@ public class ResultServiceImpl implements ResultService
 		List<ExamType> examtype_list = (List<ExamType>)examtyperepository.findAll();
 		if(examtype_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("examtype list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(examtype_list);
 	}

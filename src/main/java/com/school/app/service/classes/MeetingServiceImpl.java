@@ -28,7 +28,7 @@ public class MeetingServiceImpl implements MeetingService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
@@ -38,7 +38,7 @@ public class MeetingServiceImpl implements MeetingService
 		List<Meeting> meeting_list = (List<Meeting>)meetingrepository.findAll();
 		if(meeting_list.size() < 1)
 		{
-			throw new ResourceNotFoundException("meeting list not found");
+			throw new ResourceNotFoundException("Sorry! Not Found.");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(meeting_list);
 	}
@@ -46,22 +46,22 @@ public class MeetingServiceImpl implements MeetingService
 	@Override
 	public ResponseEntity<Object> getMeetingById(int id) 
 	{
-		Meeting meeting =  meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("meeting not found for id" + id));
+		Meeting meeting =  meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(meeting);
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteMeetingById(int id)
 	{
-		meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("meeting not found for id" + id));
+		meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		meetingrepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Meeting successfully deleted");
 	}
 
 	@Override
 	public ResponseEntity<Object> updateMeeting(Meeting meeting,int id) 
 	{
-		Meeting meetingById =  meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("meeting not found for id" + id));
+		Meeting meetingById =  meetingrepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try 
 		{
 			meetingById.setMeetingDate(meeting.getMeetingDate());
@@ -76,7 +76,7 @@ public class MeetingServiceImpl implements MeetingService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 

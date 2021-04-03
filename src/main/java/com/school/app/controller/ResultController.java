@@ -35,7 +35,7 @@ public class ResultController
 	}
 	
 	@GetMapping("/result/{id}")
-	public ResponseEntity<Object> getResult(int id)
+	public ResponseEntity<Object> getResult(@PathVariable int  id)
 	{
 		return resultservice.getResultById(id);
 	}

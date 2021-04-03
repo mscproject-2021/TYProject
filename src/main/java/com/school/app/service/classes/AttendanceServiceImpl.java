@@ -26,21 +26,21 @@ public class AttendanceServiceImpl implements AttendanceService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> getAttendanceById(int id) 
 	{
-		Attendance attendance =  attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("attendance not found for id" + id));
+		Attendance attendance =  attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		return ResponseEntity.status(HttpStatus.OK).body(attendance);
 	}
 
 	@Override
 	public ResponseEntity<Object> updateAttendance(Attendance attendance, int id) 
 	{
-		Attendance attendanceById =  attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("attendance not found for not found for id" + id));
+		Attendance attendanceById =  attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		try
 		{
 			attendanceById.setAbsentDays(attendance.getAbsentDays());
@@ -55,15 +55,15 @@ public class AttendanceServiceImpl implements AttendanceService
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
 		}
 	}
 
 	@Override
 	public ResponseEntity<Object> deleteAttendanceById(int id) 
 	{
-		attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("attendance not found for not found for id" + id));
+		attendancerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
 		attendancerepository.deleteById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("successfully deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("Attendance successfully deleted");
 	}
 }

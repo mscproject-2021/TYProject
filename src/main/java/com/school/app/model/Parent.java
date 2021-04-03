@@ -15,20 +15,22 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userName"}))
 public class Parent 
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO,generator = "native")
+	@GenericGenerator(name="native",strategy = "native")
 	@Column(length = 4 , updatable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int parentId;
 	
 	@OneToOne
 	private Student student;
 	
-	@OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "parent",cascade = CascadeType.ALL)
 	private User user;
 	
 	@OneToMany(mappedBy = "parent",cascade = CascadeType.ALL)
