@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.school.app.exception.ResourceNotFoundException;
 import com.school.app.model.FeePayment;
+import com.school.app.model.FeeStructure;
 import com.school.app.repository.FeePaymentRepository;
+import com.school.app.repository.FeeStructureRepository;
 import com.school.app.service.interfaces.FeePaymentService;
 
 @Service
@@ -16,6 +18,9 @@ public class FeePaymentServiceImpl implements FeePaymentService
 {
 	@Autowired
 	FeePaymentRepository feepaymentrepository;
+	
+	@Autowired
+	FeeStructureRepository feestructurerepository;
 	
 	@Override
 	public ResponseEntity<Object> saveFeePayment(FeePayment feePayment) 
@@ -83,4 +88,65 @@ public class FeePaymentServiceImpl implements FeePaymentService
 		return ResponseEntity.status(HttpStatus.OK).body(feePayment_list);
 	}
 
+	@Override
+	public ResponseEntity<Object> saveFeeStructure(FeeStructure feeStructure) 
+	{
+		try
+		{
+			FeeStructure add_feestructure = feestructurerepository.save(feeStructure);
+			return ResponseEntity.status(HttpStatus.CREATED).body(add_feestructure);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+		}
+	}
+	
+	@Override
+	public ResponseEntity<Object> getFeeStructureById(int id) 
+	{
+		FeeStructure feestructure =  feestructurerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		return ResponseEntity.status(HttpStatus.OK).body(feestructure);
+		
+	}
+	
+	@Override
+	public ResponseEntity<Object> updateFeeStructure(FeeStructure feeStructure,int id) 
+	{
+		FeeStructure feeStructureById =  feestructurerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		try 
+		{
+			feeStructureById.setFee(feeStructure.getFee());
+			feeStructureById.setMedium(feeStructure.getMedium());
+			feeStructureById.setStandard(feeStructure.getStandard());
+			
+			feestructurerepository.save(feeStructureById);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(feeStructureById);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+		}
+	}
+	
+	@Override
+	public ResponseEntity<Object> deleteFeeStructureById(int id) 
+	{
+		feestructurerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		feestructurerepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).body("Fee Structure successfully deleted");
+	}
+
+	@Override
+	public ResponseEntity<List<FeeStructure>> getAllFeeStructures() 
+	{
+		List<FeeStructure> feestructure_list = (List<FeeStructure>)feestructurerepository.findAll();
+		if(feestructure_list.size() < 1)
+		{
+			throw new ResourceNotFoundException("Sorry! Not Found.");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(feestructure_list);
+	}
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.school.app.model.FeePayment;
+import com.school.app.model.FeeStructure;
 import com.school.app.service.interfaces.FeePaymentService;
 
 @RestController
@@ -59,4 +60,35 @@ public class FeePaymentController
 	{
 		return feepaymentservice.deleteFeePaymentById(id);
 	}
+	
+	@GetMapping("/fee-structures")
+	public ResponseEntity<List<FeeStructure>> getFeeStructureList()
+	{
+		return feepaymentservice.getAllFeeStructures();
+	}
+	
+	@GetMapping("/fee-structure/{id}")
+	public ResponseEntity<Object> getFeeStructure(@PathVariable int id)
+	{
+		return feepaymentservice.getFeeStructureById(id);
+	}
+	
+	@PostMapping("/fee-structure")
+	public ResponseEntity<Object> addFeeStructure(@RequestBody FeeStructure feeStructure)
+	{
+		return feepaymentservice.saveFeeStructure(feeStructure);
+	}
+		
+	@PutMapping("/fee-structure/{id}")
+	public ResponseEntity<Object> updateFeeStructure(@RequestBody FeeStructure feeStructure,@PathVariable int id)
+	{
+		return feepaymentservice.updateFeeStructure(feeStructure, id);
+	}
+	
+	@DeleteMapping("/fee-structure/{id}")
+	public ResponseEntity<Object> deleteFeeStructure(@PathVariable int id)
+	{
+		return feepaymentservice.deleteFeeStructureById(id);
+	}
+
 }

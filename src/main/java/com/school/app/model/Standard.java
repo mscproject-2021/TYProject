@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -50,8 +51,9 @@ public class Standard
 	private List<Meeting> meeting;
 	
 	@NotNull
-	@Column(length = 2,nullable = false)
-	private int standardName;
+	@Size(max = 15)
+	@Column(length = 15,nullable = false)
+	private String standardName;
 	
 	@NotNull
 	@Column(length = 3,nullable = false)
@@ -69,7 +71,7 @@ public class Standard
 
 	public Standard(int standardId, List<Division> division, List<Student> student, List<Subject> subject,
 			List<TimeTable> timetable, List<Teacher> teacher, List<StudyMaterial> studyMaterial, List<Result> result,
-			List<ResultFile> resultFile, List<Meeting> meeting, @NotNull int standardName, @NotNull int noOfStudents,
+			List<ResultFile> resultFile, List<Meeting> meeting, @NotNull String standardName, @NotNull int noOfStudents,
 			@NotNull int noOfSubjects) {
 		super();
 		this.standardId = standardId;
@@ -167,11 +169,11 @@ public class Standard
 		this.meeting = meeting;
 	}*/
 
-	public int getStandardName() {
+	public String getStandardName() {
 		return standardName;
 	}
 
-	public void setStandardName(int standardName) {
+	public void setStandardName(String standardName) {
 		this.standardName = standardName;
 	}
 

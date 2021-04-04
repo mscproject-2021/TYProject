@@ -9,7 +9,9 @@ import com.school.app.exception.ResourceNotFoundException;
 import com.school.app.model.Division;
 import com.school.app.model.Standard;
 import com.school.app.model.Subject;
+import com.school.app.model.image;
 import com.school.app.repository.DivisionRepository;
+import com.school.app.repository.ImageRepository;
 import com.school.app.repository.StandardRepository;
 import com.school.app.repository.SubjectRepository;
 import com.school.app.service.interfaces.CoreService;
@@ -25,6 +27,9 @@ public class CoreServiceImpl implements CoreService
 
 	@Autowired
 	SubjectRepository subjectrepository;
+	
+	@Autowired
+	ImageRepository imagerepository;
 	
 	@Override
 	public ResponseEntity<List<Division>> getAllDivisions() 
@@ -58,5 +63,69 @@ public class CoreServiceImpl implements CoreService
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(subject_list);
 	}
+	
+	//image
+	@Override
+	public ResponseEntity<Object> saveImage(image image) 
+	{
+		try
+		{
+			image add_image = imagerepository.save(image);
+			return ResponseEntity.status(HttpStatus.CREATED).body(add_image);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+		}
+	}
+	
+	@Override
+	public ResponseEntity<List<image>> getAllImages() 
+	{
+		List<image> image_list = (List<image>)imagerepository.findAll();
+		if(image_list.size() < 1)
+		{
+			throw new ResourceNotFoundException("Sorry! Not Found.");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(image_list);
+	}
+	
+	@Override
+	public ResponseEntity<Object> getImageById(int id) 
+	{
+		image image =  imagerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		return ResponseEntity.status(HttpStatus.OK).body(image);
+		
+	}
+	
+	@Override
+	public ResponseEntity<Object> updateImage(image image,int id) 
+	{
+		image imageById =  imagerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		try 
+		{
+			imageById.setImageName(image.getImageName());
+			imageById.setImagePath(image.getImagePath());
+			
+			imagerepository.save(imageById);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(imageById);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Sorry! Try Again.");
+		}
+	}
+	
+	@Override
+	public ResponseEntity<Object> deleteImageById(int id) 
+	{
+		imagerepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Sorry! Not found for :" + id));
+		imagerepository.deleteById(id);
+		return ResponseEntity.status(HttpStatus.OK).body("image successfully deleted");
+	}
+
+
 
 }
